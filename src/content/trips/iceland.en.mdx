@@ -15,6 +15,8 @@ theme:
   accent: "#2f6f7e"
 order: 1
 draft: false
+audio:
+  mode: per-video
 ---
 
 import Hero from '../../components/scenes/Hero.astro';
@@ -31,8 +33,10 @@ export const M = {
   sticky1: 'https://images.unsplash.com/photo-1488866022504-f2584929ca5f?w=1900&q=80&fm=jpg&fit=crop',
   sticky2: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1900&q=80&fm=jpg&fit=crop',
   sticky3: 'https://images.unsplash.com/photo-1502786129293-79981df4e689?w=1900&q=80&fm=jpg&fit=crop',
-  video: 'https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4',
+  video: 'https://www.w3schools.com/html/mov_bbb.mp4',
   videoPoster: 'https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&w=1600',
+  video2: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+  video2Poster: 'https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?auto=compress&w=1600',
   quote: 'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?w=2400&q=80&fm=jpg&fit=crop',
   gWide: 'https://images.pexels.com/photos/388830/pexels-photo-388830.jpeg?auto=compress&w=2000',
   g1: 'https://images.pexels.com/photos/1559821/pexels-photo-1559821.jpeg?auto=compress&w=1100',
@@ -98,7 +102,7 @@ with us.
   video={M.video}
   poster={M.videoPoster}
   alt="The south coast stretching toward distant cliffs"
-  caption="The south coast — scroll to drive west"
+  caption="The south coast — tap Sound to listen"
   place="South Coast"
   coord="63.531° N, 19.511° W"
   meta="Day 4 — driving west"
@@ -123,6 +127,16 @@ along the horizon and back up again. We stopped counting hours and started count
 The last night we ran out of daylight somewhere on the Snæfellsnes peninsula, which is to say we
 didn't — it simply circled around and met us on the other side.
 </ReadingBlock>
+
+<ScrubVideo
+  video={M.video2}
+  poster={M.video2Poster}
+  alt="A close, quiet detail from the road"
+  caption="Snæfellsnes — sound follows whichever clip you're watching"
+  place="Snæfellsnes"
+  coord="64.927° N, 23.768° W"
+  meta="Day 6 — the quiet half"
+/>
 
 <Gallery
   place="Iceland"

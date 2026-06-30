@@ -99,15 +99,14 @@ function initStickyPhotos(): void {
   });
 }
 
-/* Video scenes:
-   - [data-autoplay-video]: loops while in view, on any device — no scrolling needed.
-   - [data-scrub-video]:    desktop ties currentTime to scroll; touch falls back to autoplay-in-view.
-   - [data-scrub-pan]:      wide image panned like a camera move. */
+/* Scrub-mode video scenes (opt-in). [data-autoplay-video] is handled by lib/audio.ts
+   so video playback and audio share one owner.
+   - [data-scrub-video]: desktop ties currentTime to scroll; touch falls back to autoplay-in-view.
+   - [data-scrub-pan]:   wide image panned like a camera move. */
 function initScrubVideos(fine: boolean): void {
   gsap.utils.toArray<HTMLElement>('.scene-scrub').forEach((scene) => {
     const pan = scene.querySelector<HTMLElement>('[data-scrub-pan]');
     const scrubVideo = scene.querySelector<HTMLVideoElement>('[data-scrub-video]');
-    const autoVideo = scene.querySelector<HTMLVideoElement>('[data-autoplay-video]');
 
     if (pan) {
       gsap.fromTo(
@@ -120,8 +119,6 @@ function initScrubVideos(fine: boolean): void {
         },
       );
     }
-
-    if (autoVideo) playInView(autoVideo);
 
     if (scrubVideo) {
       if (fine) {

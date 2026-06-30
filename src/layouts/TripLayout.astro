@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ExpeditionHUD from '../components/ExpeditionHUD.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import SoundToggle from '../components/SoundToggle.astro';
 import { t, type Locale } from '../i18n/ui';
 import type { Trip } from '../lib/trips';
 
@@ -15,6 +16,9 @@ interface Props {
 }
 const { trip, alternates } = Astro.props;
 const { title, summary, lang, theme } = trip.data;
+
+const audioMode = trip.data.audio.mode;
+const audioSrc = trip.data.audio.mode === 'track' ? trip.data.audio.src : undefined;
 
 const themeVars = {
   '--accent': theme.accent,
@@ -30,6 +34,10 @@ const indexHref = `/${lang}/`;
 
   <LanguageSwitcher current={lang} alternates={alternates} />
   <ExpeditionHUD />
+  {audioMode !== 'none' && <SoundToggle mode={audioMode} />}
+  {audioMode === 'track' && audioSrc && (
+    <audio id="trip-audio" src={audioSrc} loop preload="none"></audio>
+  )}
 
   <main class="trip">
     <slot />
@@ -41,7 +49,9 @@ const indexHref = `/${lang}/`;
 
   <script>
     import { initMotion } from '../lib/motion';
+    import { initTripAudio } from '../lib/audio';
     initMotion();
+    initTripAudio();
   </script>
 
   <style>

@@ -15,6 +15,8 @@ theme:
   accent: "#2f6f7e"
 order: 1
 draft: false
+audio:
+  mode: per-video
 ---
 
 import Hero from '../../components/scenes/Hero.astro';
@@ -31,8 +33,10 @@ export const M = {
   sticky1: 'https://images.unsplash.com/photo-1488866022504-f2584929ca5f?w=1900&q=80&fm=jpg&fit=crop',
   sticky2: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1900&q=80&fm=jpg&fit=crop',
   sticky3: 'https://images.unsplash.com/photo-1502786129293-79981df4e689?w=1900&q=80&fm=jpg&fit=crop',
-  video: 'https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4',
+  video: 'https://www.w3schools.com/html/mov_bbb.mp4',
   videoPoster: 'https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&w=1600',
+  video2: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+  video2Poster: 'https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?auto=compress&w=1600',
   quote: 'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?w=2400&q=80&fm=jpg&fit=crop',
   gWide: 'https://images.pexels.com/photos/388830/pexels-photo-388830.jpeg?auto=compress&w=2000',
   g1: 'https://images.pexels.com/photos/1559821/pexels-photo-1559821.jpeg?auto=compress&w=1100',
@@ -97,7 +101,7 @@ Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo nared
   video={M.video}
   poster={M.videoPoster}
   alt="Južna obala, ki se razteza proti oddaljenim pečinam"
-  caption="Južna obala — drsaj za vožnjo proti zahodu"
+  caption="Južna obala — pritisni Zvok za poslušanje"
   place="Južna obala"
   coord="63.531° S, 19.511° Z"
   meta="4. dan — proti zahodu"
@@ -121,6 +125,16 @@ obzorju in se spet dvignila. Nehali smo šteti ure in začeli šteti slapove.
 Zadnjo noč nam je zmanjkalo dnevne svetlobe nekje na polotoku Snæfellsnes — kar pomeni, da nam ni:
 preprosto je zaokrožila in nas pričakala na drugi strani.
 </ReadingBlock>
+
+<ScrubVideo
+  video={M.video2}
+  poster={M.video2Poster}
+  alt="Tih, bližnji prizor s ceste"
+  caption="Snæfellsnes — zvok sledi posnetku, ki ga gledaš"
+  place="Snæfellsnes"
+  coord="64.927° S, 23.768° Z"
+  meta="6. dan — tiha polovica"
+/>
 
 <Gallery
   place="Islandija"

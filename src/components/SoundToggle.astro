@@ -1,0 +1,67 @@
+---
+/* Fixed sound control. Hidden until lib/audio.ts enables it (sound can't work
+   without JS + a user gesture). `mode` tells the controller how to behave. */
+interface Props {
+  mode: 'track' | 'per-video';
+}
+const { mode } = Astro.props;
+const label = mode === 'track' ? 'Music' : 'Sound';
+---
+
+<button id="sound-toggle" class="sound" type="button" data-mode={mode} aria-pressed="false" aria-label={`${label}: off`} hidden>
+  <span class="sound-ico" aria-hidden="true">
+    <span data-ico-off>🔈</span>
+    <span data-ico-on hidden>🔊</span>
+  </span>
+  <span class="sound-text" data-sound-text>{label} off</span>
+</button>
+
+<style>
+  .sound {
+    position: fixed;
+    right: calc(0.9rem + env(safe-area-inset-right, 0));
+    bottom: calc(0.9rem + env(safe-area-inset-bottom, 0));
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.4rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+    background: var(--hud-bg);
+    color: var(--hud-ink);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s var(--ease-out);
+  }
+  .sound.is-on {
+    background: var(--accent);
+    border-color: transparent;
+    color: #fff;
+  }
+  .sound-ico {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  @media (hover: hover) {
+    .sound:hover {
+      background: rgba(40, 36, 30, 0.85);
+    }
+    .sound.is-on:hover {
+      background: var(--accent);
+    }
+  }
+  /* Keep clear of the expedition HUD on narrow screens by hiding the label. */
+  @media (max-width: 540px) {
+    .sound-text {
+      display: none;
+    }
+    .sound {
+      padding: 0.4rem 0.6rem;
+    }
+  }
+</style>

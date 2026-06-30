@@ -36,6 +36,21 @@ const trips = defineCollection({
 
     order: z.number().default(0),
     draft: z.boolean().default(false),
+
+    // Audio mode for the trip (handled by lib/audio.ts):
+    //   none      — silent (default); videos autoplay muted
+    //   track     — one looping soundtrack for the whole page; videos stay muted
+    //   per-video — each video autoplays muted; one tap enables sound on the in-view video
+    audio: z
+      .preprocess(
+        (v) => (v == null || v === 'none' ? { mode: 'none' } : v),
+        z.discriminatedUnion('mode', [
+          z.object({ mode: z.literal('none') }),
+          z.object({ mode: z.literal('track'), src: z.string().url() }),
+          z.object({ mode: z.literal('per-video') }),
+        ]),
+      )
+      .default({ mode: 'none' }),
   }),
 });
 
