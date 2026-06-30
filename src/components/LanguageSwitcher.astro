@@ -1,5 +1,5 @@
 ---
-import { localeNames, type Locale } from '../i18n/ui';
+import { locales, localeNames, type Locale } from '../i18n/ui';
 
 interface Alt {
   lang: Locale;
@@ -10,18 +10,24 @@ interface Props {
   alternates: Alt[];
 }
 const { current, alternates } = Astro.props;
-// Only render when there's somewhere else to go.
-const others = alternates.filter((a) => a.lang !== current);
+
+const hrefByLang = new Map(alternates.map((a) => [a.lang, a.href]));
+const hasOther = alternates.some((a) => a.lang !== current);
+// Stable order (locales config order); show the current one plus any with a translation.
+const items = locales.filter((l) => l === current || hrefByLang.has(l));
 ---
 
-{others.length > 0 && (
+{hasOther && (
   <nav class="lang" aria-label="Language">
-    <span class="lang-current">{current.toUpperCase()}</span>
-    {others.map((a) => (
-      <a href={a.href} hreflang={a.lang} lang={a.lang} title={localeNames[a.lang]}>
-        {a.lang.toUpperCase()}
-      </a>
-    ))}
+    {items.map((l) =>
+      l === current ? (
+        <span class="lang-current" aria-current="true">{l.toUpperCase()}</span>
+      ) : (
+        <a href={hrefByLang.get(l)} hreflang={l} lang={l} title={localeNames[l]}>
+          {l.toUpperCase()}
+        </a>
+      ),
+    )}
   </nav>
 )}
 
