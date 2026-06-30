@@ -1,0 +1,43 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+/* One MDX file per trip per language, e.g. trips/iceland.en.mdx, trips/iceland.sl.mdx.
+   `lang` + `slug` come from frontmatter so each language can have a localized URL
+   (e.g. /en/iceland, /sl/islandija). */
+const trips = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/trips' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      summary: z.string(),
+      date: z.coerce.date(),
+      lang: z.enum(['en', 'sl']),
+      slug: z.string(), // localized URL slug
+      key: z.string(), // shared id across languages (e.g. "iceland") for the switcher
+
+      location: z.object({
+        name: z.string(),
+        lat: z.number(),
+        lng: z.number(),
+      }),
+
+      heroImage: image(),
+      heroAlt: z.string().default(''),
+      heroVideo: z.string().optional(), // external URL; host decided later
+      heroPoster: z.string().optional(),
+
+      // Per-trip theme overrides (fall back to tokens.css defaults).
+      theme: z
+        .object({
+          accent: z.string().optional(),
+          paper: z.string().optional(),
+          ink: z.string().optional(),
+        })
+        .default({}),
+
+      order: z.number().default(0),
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { trips };

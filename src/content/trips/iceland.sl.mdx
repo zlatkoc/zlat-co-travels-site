@@ -1,0 +1,131 @@
+---
+title: Sedem dni okoli Islandije
+summary: Počasen krog po Ring Roadu, za svetlobo, ki nikoli povsem ne ugasne.
+date: 2026-06-01
+lang: sl
+slug: islandija
+key: iceland
+location:
+  name: Islandija
+  lat: 64.96
+  lng: -19.02
+heroImage: ./_media/iceland/hero.jpg
+heroAlt: Slap pod bledim polnočnim nebom
+theme:
+  accent: "#2f6f7e"
+order: 1
+draft: false
+---
+
+import Hero from '../../components/scenes/Hero.astro';
+import ReadingBlock from '../../components/scenes/ReadingBlock.astro';
+import StickyPhoto from '../../components/scenes/StickyPhoto.astro';
+import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
+import PullQuote from '../../components/scenes/PullQuote.astro';
+import Gallery from '../../components/scenes/Gallery.astro';
+
+import hero from './_media/iceland/hero.jpg';
+import glacier1 from './_media/iceland/glacier-1.jpg';
+import glacier2 from './_media/iceland/glacier-2.jpg';
+import glacier3 from './_media/iceland/glacier-3.jpg';
+import coastPano from './_media/iceland/coast-pano.jpg';
+import blackSand from './_media/iceland/black-sand.jpg';
+import g1 from './_media/iceland/g1.jpg';
+import g2 from './_media/iceland/g2.jpg';
+import g3 from './_media/iceland/g3.jpg';
+import g4 from './_media/iceland/g4.jpg';
+import g5 from './_media/iceland/g5.jpg';
+import gWide from './_media/iceland/g-wide.jpg';
+
+<Hero
+  image={hero}
+  alt="Slap pod bledim polnočnim nebom"
+  eyebrow="Zapiski s poti — št. 01"
+  title="Sedem dni okoli Islandije"
+  subtitle="Po daljši poti okoli Ring Roada."
+  place="Keflavík"
+  coord="63.985° S, 22.605° Z"
+  meta="1. dan — prihod"
+/>
+
+<ReadingBlock dropcap place="Reykjavík" coord="64.147° S, 21.942° Z" meta="1. dan — prva noč">
+Pristali smo opolnoči pod nebom, ki ni hotelo potemneti. Cesta iz Keflavíka je tekla naravnost skozi
+lavna polja barve starega pepela, in nekje za zadnjim krožiščem se je dežela preprosto odprla in nas
+spustila vase.
+
+Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo narediti z nami.
+</ReadingBlock>
+
+<StickyPhoto
+  steps={[
+    {
+      image: glacier1,
+      alt: 'Ledeniška laguna z ledom',
+      title: 'Jökulsárlón',
+      text: 'Laguna je bila glasnejša, kot smo pričakovali — led je pokal in se premikal, nekje izven pogleda.',
+      place: 'Jökulsárlón',
+      coord: '64.048° S, 16.179° Z',
+      meta: '3. dan — ledeniška laguna',
+    },
+    {
+      image: glacier2,
+      alt: 'Bližnji posnetek modrega ledu',
+      title: 'Tisoč let, gor ali dol',
+      text: 'Nekateri kosi so starejši od katerega koli mesta. Modrina je stisk — zrak, iztisnjen skozi stoletja, dokler ne ostane le barva.',
+      place: 'Jökulsárlón',
+      coord: '64.048° S, 16.179° Z',
+      meta: '3. dan — led od blizu',
+    },
+    {
+      image: glacier3,
+      alt: 'Led na črni plaži',
+      title: 'Diamantna plaža',
+      text: 'Dolvodno plima manjše kose vrne na črno peščeno obalo, kjer ležijo kot steklo, dokler jih morje spet ne vzame.',
+      place: 'Breiðamerkursandur',
+      coord: '64.043° S, 16.181° Z',
+      meta: '3. dan — diamantna plaža',
+    },
+  ]}
+/>
+
+<ScrubVideo
+  panImage={coastPano}
+  alt="Južna obala, ki se razteza proti oddaljenim pečinam"
+  caption="Južna obala — pomik sledi cesti"
+  place="Južna obala"
+  coord="63.531° S, 19.511° Z"
+  meta="4. dan — proti zahodu"
+/>
+
+<PullQuote
+  image={blackSand}
+  alt="Črn bazaltni pesek pod sivim nebom"
+  cite="Reynisfjara"
+  place="Reynisfjara"
+  coord="63.405° S, 19.044° Z"
+  meta="4. dan — črna plaža"
+>
+Valovi tu pridejo od nikoder. Stoj preblizu in ocean te bo spomnil, čigava dežela je to v resnici.
+</PullQuote>
+
+<ReadingBlock place="Snæfellsnes" coord="64.927° S, 23.768° Z" meta="6. dan — polotok">
+Do šestega dne je svetloba postala svojevrsten sopotnik — nikoli povsem odsotna, le drsela je ob
+obzorju in se spet dvignila. Nehali smo šteti ure in začeli šteti slapove.
+
+Zadnjo noč nam je zmanjkalo dnevne svetlobe nekje na polotoku Snæfellsnes — kar pomeni, da nam ni:
+preprosto je zaokrožila in nas pričakala na drugi strani.
+</ReadingBlock>
+
+<Gallery
+  place="Islandija"
+  coord="64.963° S, 19.021° Z"
+  meta="Sedem dni, ena cesta"
+  items={[
+    { image: gWide, alt: 'Severni sij nad temnim grebenom', wide: true },
+    { image: g1, alt: 'Polje v nizki svetlobi' },
+    { image: g2, alt: 'Kmetija s travnato streho' },
+    { image: g3, alt: 'Fjord pod oblaki' },
+    { image: g4, alt: 'Osamljen cestni znak' },
+    { image: g5, alt: 'Megla nad vodo' },
+  ]}
+/>

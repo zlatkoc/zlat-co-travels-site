@@ -1,0 +1,50 @@
+---
+/* Editorial prose column. Wrap MDX prose in <ReadingBlock> ... </ReadingBlock>.
+   First block on a page can set `dropcap` for the drop-cap opener.
+   Carries optional HUD anchor data so chapters update the expedition log. */
+interface Props {
+  dropcap?: boolean;
+  place?: string;
+  coord?: string;
+  meta?: string;
+}
+const { dropcap = false, place, coord, meta } = Astro.props;
+---
+
+<section
+  class:list={['scene-reading', { 'has-dropcap': dropcap }]}
+  data-place={place}
+  data-coord={coord}
+  data-meta={meta}
+>
+  <div class="measure" data-reveal>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .scene-reading {
+    padding-block: var(--section-gap);
+    background: var(--paper);
+  }
+  .scene-reading :global(p) {
+    margin: 0 0 1.4em;
+  }
+  /* Editorial indents after the first paragraph. */
+  .scene-reading :global(p + p) {
+    margin-top: -0.4em;
+    text-indent: 1.6em;
+  }
+  .has-dropcap :global(p:first-of-type)::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.6em;
+    line-height: 0.78;
+    padding: 0.05em 0.1em 0 0;
+    color: var(--accent);
+  }
+  .scene-reading :global(h2) {
+    font-size: var(--step-2);
+    margin: 1.6em 0 0.6em;
+  }
+</style>

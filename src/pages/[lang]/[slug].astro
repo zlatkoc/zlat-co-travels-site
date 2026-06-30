@@ -1,0 +1,24 @@
+---
+import { render } from 'astro:content';
+import TripLayout from '../../layouts/TripLayout.astro';
+import { getAllTripParams, getTripTranslations } from '../../lib/trips';
+import type { Locale } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return await getAllTripParams();
+}
+
+const { trip } = Astro.props;
+const { Content } = await render(trip);
+
+// hreflang alternates: this trip in every language it exists in.
+const translations = await getTripTranslations(trip);
+const alternates = translations.map((t) => ({
+  lang: t.data.lang as Locale,
+  href: `/${t.data.lang}/${t.data.slug}`,
+}));
+---
+
+<TripLayout trip={trip} alternates={alternates}>
+  <Content />
+</TripLayout>

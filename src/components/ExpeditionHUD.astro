@@ -1,0 +1,60 @@
+---
+/* Fixed "expedition log" overlay. Contents are updated by initHud() in motion.ts
+   as chapters (elements with data-place/data-coord/data-meta) scroll into view. */
+---
+<aside id="expedition-hud" class="hud" aria-hidden="true">
+  <span class="hud-dot"></span>
+  <span class="hud-place" data-hud-place></span>
+  <span class="hud-coord" data-hud-coord></span>
+  <span class="hud-meta" data-hud-meta></span>
+</aside>
+
+<style>
+  .hud {
+    position: fixed;
+    left: calc(0.9rem + env(safe-area-inset-left, 0));
+    bottom: calc(0.9rem + env(safe-area-inset-bottom, 0));
+    z-index: 90;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    max-width: min(80vw, 30rem);
+    padding: 0.55rem 0.85rem;
+    background: var(--hud-bg);
+    color: var(--hud-ink);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  .hud-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    align-self: center;
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: ping 2.4s var(--ease-out) infinite;
+  }
+  .hud-place {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .hud-coord {
+    opacity: 0.85;
+  }
+  .hud-meta {
+    opacity: 0.6;
+  }
+  @keyframes ping {
+    0% { box-shadow: 0 0 0 0 rgba(177, 84, 31, 0.6); }
+    70%, 100% { box-shadow: 0 0 0 8px rgba(177, 84, 31, 0); }
+  }
+  /* Shrink the coordinate detail on very small screens. */
+  @media (max-width: 420px) {
+    .hud-meta { display: none; }
+  }
+</style>

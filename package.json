@@ -1,0 +1,26 @@
+{
+  "name": "zlat-co-travels-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal immersive travel site — travels.zlat.co",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.0",
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/sitemap": "^3.3.0",
+    "gsap": "^3.13.0",
+    "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.8.0"
+  }
+}

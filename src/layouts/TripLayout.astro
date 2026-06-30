@@ -1,0 +1,78 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ExpeditionHUD from '../components/ExpeditionHUD.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { t, type Locale } from '../i18n/ui';
+import type { Trip } from '../lib/trips';
+
+interface Alt {
+  lang: Locale;
+  href: string;
+}
+interface Props {
+  trip: Trip;
+  alternates: Alt[];
+}
+const { trip, alternates } = Astro.props;
+const { title, summary, lang, theme } = trip.data;
+
+const themeVars = {
+  '--accent': theme.accent,
+  '--paper': theme.paper,
+  '--ink': theme.ink,
+};
+
+const indexHref = `/${lang}/`;
+---
+
+<BaseLayout title={`${title} — ${t(lang, 'site.title')}`} description={summary} lang={lang} alternates={alternates} themeVars={themeVars}>
+  <a class="skip-back" href={indexHref}>← {t(lang, 'trip.back')}</a>
+
+  <LanguageSwitcher current={lang} alternates={alternates} />
+  <ExpeditionHUD />
+
+  <main class="trip">
+    <slot />
+  </main>
+
+  <footer class="trip-footer">
+    <a href={indexHref}>{t(lang, 'trip.back')}</a>
+  </footer>
+
+  <script>
+    import { initMotion } from '../lib/motion';
+    initMotion();
+  </script>
+
+  <style>
+    .skip-back {
+      position: fixed;
+      top: calc(0.8rem + env(safe-area-inset-top, 0));
+      left: calc(0.9rem + env(safe-area-inset-left, 0));
+      z-index: 90;
+      padding: 0.45rem 0.8rem;
+      background: var(--hud-bg);
+      color: var(--hud-ink);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+    .trip {
+      display: block;
+    }
+    .trip-footer {
+      padding: var(--section-gap) var(--gutter);
+      text-align: center;
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .trip-footer a {
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: var(--step--1);
+    }
+  </style>
+</BaseLayout>

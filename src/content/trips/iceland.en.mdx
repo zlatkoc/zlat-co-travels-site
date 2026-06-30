@@ -1,0 +1,133 @@
+---
+title: Seven Days Around Iceland
+summary: A slow loop of the Ring Road, chasing light that never quite went out.
+date: 2026-06-01
+lang: en
+slug: iceland
+key: iceland
+location:
+  name: Iceland
+  lat: 64.96
+  lng: -19.02
+heroImage: ./_media/iceland/hero.jpg
+heroAlt: A waterfall under a pale midnight sky
+theme:
+  accent: "#2f6f7e"
+order: 1
+draft: false
+---
+
+import Hero from '../../components/scenes/Hero.astro';
+import ReadingBlock from '../../components/scenes/ReadingBlock.astro';
+import StickyPhoto from '../../components/scenes/StickyPhoto.astro';
+import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
+import PullQuote from '../../components/scenes/PullQuote.astro';
+import Gallery from '../../components/scenes/Gallery.astro';
+
+import hero from './_media/iceland/hero.jpg';
+import glacier1 from './_media/iceland/glacier-1.jpg';
+import glacier2 from './_media/iceland/glacier-2.jpg';
+import glacier3 from './_media/iceland/glacier-3.jpg';
+import coastPano from './_media/iceland/coast-pano.jpg';
+import blackSand from './_media/iceland/black-sand.jpg';
+import g1 from './_media/iceland/g1.jpg';
+import g2 from './_media/iceland/g2.jpg';
+import g3 from './_media/iceland/g3.jpg';
+import g4 from './_media/iceland/g4.jpg';
+import g5 from './_media/iceland/g5.jpg';
+import gWide from './_media/iceland/g-wide.jpg';
+
+<Hero
+  image={hero}
+  alt="A waterfall under a pale midnight sky"
+  eyebrow="Field Notes — No. 01"
+  title="Seven Days Around Iceland"
+  subtitle="The long way around the Ring Road."
+  place="Keflavík"
+  coord="63.985° N, 22.605° W"
+  meta="Day 1 — arrival"
+/>
+
+<ReadingBlock dropcap place="Reykjavík" coord="64.147° N, 21.942° W" meta="Day 1 — first night">
+We landed at midnight to a sky that refused to go dark. The road out of Keflavík ran straight
+through lava fields the colour of old ash, and somewhere past the last roundabout the country simply
+opened up and let us in.
+
+There was no plan beyond the loop itself — one road, a week, and whatever the weather decided to do
+with us.
+</ReadingBlock>
+
+<StickyPhoto
+  steps={[
+    {
+      image: glacier1,
+      alt: 'A glacial lagoon dotted with ice',
+      title: 'Jökulsárlón',
+      text: 'The lagoon was louder than expected — ice cracking and shifting, calving off the glacier somewhere out of sight.',
+      place: 'Jökulsárlón',
+      coord: '64.048° N, 16.179° W',
+      meta: 'Day 3 — glacial lagoon',
+    },
+    {
+      image: glacier2,
+      alt: 'Close detail of blue glacial ice',
+      title: 'A thousand years, give or take',
+      text: 'Some of these blocks are older than any city. The blue is compression — air squeezed out over centuries until only colour is left.',
+      place: 'Jökulsárlón',
+      coord: '64.048° N, 16.179° W',
+      meta: 'Day 3 — the ice up close',
+    },
+    {
+      image: glacier3,
+      alt: 'Ice washed up on a black beach',
+      title: 'Diamond Beach',
+      text: 'Downstream, the tide returns the smaller pieces to a black-sand shore, where they sit like glass until the sea takes them back.',
+      place: 'Breiðamerkursandur',
+      coord: '64.043° N, 16.181° W',
+      meta: 'Day 3 — diamond beach',
+    },
+  ]}
+/>
+
+<ScrubVideo
+  panImage={coastPano}
+  alt="The south coast stretching toward distant cliffs"
+  caption="The south coast — pan to follow the road"
+  place="South Coast"
+  coord="63.531° N, 19.511° W"
+  meta="Day 4 — driving west"
+/>
+
+<PullQuote
+  image={blackSand}
+  alt="Black basalt sand under a grey sky"
+  cite="Reynisfjara"
+  place="Reynisfjara"
+  coord="63.405° N, 19.044° W"
+  meta="Day 4 — the black beach"
+>
+The waves here come in from nowhere. Stand too close and the ocean will remind you whose country
+this really is.
+</PullQuote>
+
+<ReadingBlock place="Snæfellsnes" coord="64.927° N, 23.768° W" meta="Day 6 — the peninsula">
+By the sixth day the light had become its own kind of companion — never fully gone, just sliding
+along the horizon and back up again. We stopped counting hours and started counting waterfalls.
+
+The last night we ran out of daylight somewhere on the Snæfellsnes peninsula, which is to say we
+didn't — it simply circled around and met us on the other side.
+</ReadingBlock>
+
+<Gallery
+  place="Iceland"
+  coord="64.963° N, 19.021° W"
+  meta="Seven days, one road"
+  items={[
+    { image: gWide, alt: 'Aurora over a dark ridge', wide: true },
+    { image: g1, alt: 'A field in low light' },
+    { image: g2, alt: 'A turf-roofed farmhouse' },
+    { image: g3, alt: 'A fjord under cloud' },
+    { image: g4, alt: 'A lone road sign' },
+    { image: g5, alt: 'Mist over water' },
+  ]}
+/>

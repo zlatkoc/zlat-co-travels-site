@@ -1,0 +1,10 @@
+# Copy to .envrc and fill in. Loaded by direnv; activates the project flox env.
+use flox
+
+# AWS (deploy). Credentials come from this named profile, not from this file.
+export AWS_PROFILE="your-aws-profile"
+export AWS_REGION="us-east-1"
+
+# Route 53 hosted zone for zlat.co (used when wiring DNS for travels.zlat.co).
+export HOSTED_ZONE_NAME="zlat.co"
+export HOSTED_ZONE_ID="ZXXXXXXXXXXXXX"

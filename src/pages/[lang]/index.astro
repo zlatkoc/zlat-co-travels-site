@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TripCard from '../../components/TripCard.astro';
+import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
+import { getTripsByLocale } from '../../lib/trips';
+import { locales, t, type Locale } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: Locale };
+const trips = await getTripsByLocale(lang);
+const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
+---
+
+<BaseLayout title={t(lang, 'site.title')} description={t(lang, 'index.intro')} lang={lang} alternates={alternates}>
+  <LanguageSwitcher current={lang} alternates={alternates} />
+
+  <header class="index-head">
+    <p class="index-eyebrow">travels.zlat.co</p>
+    <h1 class="index-title">{t(lang, 'index.heading')}</h1>
+    <p class="index-intro">{t(lang, 'index.intro')}</p>
+  </header>
+
+  <main class="index-main">
+    <ul class="index-grid" role="list">
+      {trips.map((trip) => (
+        <li>
+          <TripCard trip={trip} href={`/${lang}/${trip.data.slug}`} />
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
+
+<style>
+  .index-head {
+    padding: clamp(4rem, 2rem + 9vw, 9rem) var(--gutter) var(--gutter);
+    text-align: center;
+    max-width: 50rem;
+    margin-inline: auto;
+  }
+  .index-eyebrow {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: var(--step--1);
+    color: var(--accent);
+    margin: 0 0 1rem;
+  }
+  .index-title {
+    font-size: var(--step-4);
+  }
+  .index-intro {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: var(--step-1);
+  }
+  .index-main {
+    padding: var(--gutter) var(--gutter) var(--section-gap);
+  }
+  .index-grid {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 64rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(1.2rem, 0.6rem + 2vw, 2.4rem);
+  }
+</style>

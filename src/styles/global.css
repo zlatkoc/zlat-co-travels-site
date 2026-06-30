@@ -1,0 +1,72 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* <Picture> wrapper shouldn't form its own box — let the inner <img> lay out. */
+picture {
+  display: contents;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* Shared layout helper: a centered reading column. */
+.measure {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Full-bleed scenes use dynamic viewport units so the mobile URL bar doesn't crop. */
+.bleed {
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Elements the motion layer reveals start hidden only when JS + motion are on. */
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
