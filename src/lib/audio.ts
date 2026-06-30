@@ -94,8 +94,7 @@ export function initTripAudio(): void {
     if (on) on.hidden = !soundOn;
   };
 
-  toggle.hidden = false;
-  toggle.addEventListener('click', () => {
+  const toggleSound = (): void => {
     soundOn = !soundOn;
     if (soundOn && mode === 'per-video') {
       // "Unlock" every video within this gesture (a muted play) so playback/unmute
@@ -114,5 +113,17 @@ export function initTripAudio(): void {
     }
     sync();
     render(); // settle playback/mute state inside the gesture
+  };
+
+  toggle.hidden = false;
+  toggle.addEventListener('click', toggleSound);
+
+  // Global "M" shortcut. A keydown is a valid user gesture, so it can start audio.
+  document.addEventListener('keydown', (e) => {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    if (e.key.toLowerCase() !== 'm') return;
+    const el = e.target as HTMLElement | null;
+    if (el && (el.isContentEditable || /^(input|textarea|select)$/i.test(el.tagName))) return;
+    toggleSound();
   });
 }
