@@ -22,11 +22,13 @@ export function initTripAudio(): void {
   const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-autoplay-video]'));
 
   let soundOn = false;
+  // The "active" video carries sound in per-video mode. It stays active even after
+  // scrolling off-screen, so its audio continues over photos/text as a soundtrack,
+  // until a different video scrolls into view and takes over.
+  let activeVideo: HTMLVideoElement | null = null;
   const ratios = new Map<HTMLVideoElement, number>();
 
-  // The video that should currently carry sound (per-video mode, sound enabled).
-  const audibleVideo = (): HTMLVideoElement | null => {
-    if (mode !== 'per-video' || !soundOn) return null;
+  const mostVisible = (): HTMLVideoElement | null => {
     let best: HTMLVideoElement | null = null;
     let bestRatio = 0;
     for (const [v, r] of ratios) {
@@ -39,11 +41,13 @@ export function initTripAudio(): void {
   };
 
   const render = (): void => {
-    const audible = audibleVideo();
+    const audible = mode === 'per-video' && soundOn ? activeVideo : null;
     for (const v of videos) {
       const inView = (ratios.get(v) ?? 0) > 0;
       const isAudible = v === audible;
       v.muted = !isAudible;
+      // The audible video keeps playing even off-screen (continuous soundtrack);
+      // other videos only preview muted while they're in view.
       const shouldPlay = isAudible || (!reduced && inView);
       if (shouldPlay) {
         if (v.paused) void v.play().catch(() => {});
@@ -59,6 +63,8 @@ export function initTripAudio(): void {
         for (const e of entries) {
           ratios.set(e.target as HTMLVideoElement, e.isIntersecting ? e.intersectionRatio : 0);
         }
+        const current = mostVisible();
+        if (current) activeVideo = current; // sticky: only changes when a video is in view
         render();
       },
       { threshold: [0, 0.25, 0.5, 0.75, 1] },
