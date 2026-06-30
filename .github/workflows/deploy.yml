@@ -1,0 +1,64 @@
+name: Deploy
+
+# Builds the static site and publishes to S3 + CloudFront.
+# NOT active until the AWS resources + repo config below exist (see README).
+#
+# Required GitHub repo settings (Settings → Secrets and variables → Actions):
+#   Variables:  AWS_REGION, AWS_ROLE_ARN, S3_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
+# Auth is OIDC → an IAM role (no long-lived keys).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # OIDC
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true # photos are Git LFS — fetch real files, not pointers
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Hashed assets in /_astro are immutable → cache hard. HTML → revalidate.
+      - name: Sync hashed assets (long cache)
+        run: |
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
+            --delete \
+            --exclude "*.html" \
+            --cache-control "public,max-age=31536000,immutable"
+
+      - name: Sync HTML (no long cache)
+        run: |
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
+            --delete \
+            --exclude "*" --include "*.html" \
+            --cache-control "public,max-age=0,must-revalidate"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"
