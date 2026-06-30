@@ -1,11 +1,15 @@
 ---
-/* Two modes:
-   - `video` (external URL): desktop scrubs currentTime by scroll; touch autoplay-loops in view.
-   - `panImage` (wide remote photo URL): scroll pans it horizontally like a camera move.
-   Both are hotlinked — nothing is bundled. */
+/* `video` (external URL) plays in two ways:
+   - default (autoplay): loops on its own while the scene is in view — no scrolling needed.
+   - `scrub`: desktop ties playback position to scroll (NYT effect); touch falls back to autoplay.
+   `panImage` (wide remote photo URL) scroll-pans like a camera move.
+   All media is hotlinked — nothing is bundled. Playback is gated by the motion layer, so
+   "reduce motion" users see the poster instead of autoplay. */
 interface Props {
   video?: string;
   poster?: string;
+  /** Tie playback to scroll instead of autoplaying. Default false. */
+  scrub?: boolean;
   panImage?: string;
   alt?: string;
   caption?: string;
@@ -13,14 +17,15 @@ interface Props {
   coord?: string;
   meta?: string;
 }
-const { video, poster, panImage, alt = '', caption, place, coord, meta } = Astro.props;
+const { video, poster, scrub = false, panImage, alt = '', caption, place, coord, meta } = Astro.props;
 ---
 
 <section class="scene-scrub bleed" data-place={place} data-coord={coord} data-meta={meta}>
   <div class="scrub-frame">
     {video ? (
       <video
-        data-scrub-video
+        data-scrub-video={scrub ? '' : undefined}
+        data-autoplay-video={scrub ? undefined : ''}
         muted
         playsinline
         loop

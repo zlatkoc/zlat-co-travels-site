@@ -99,13 +99,16 @@ function initStickyPhotos(): void {
   });
 }
 
-/* Scrub video: desktop ties currentTime to scroll; touch autoplay-loops in view. */
+/* Video scenes:
+   - [data-autoplay-video]: loops while in view, on any device — no scrolling needed.
+   - [data-scrub-video]:    desktop ties currentTime to scroll; touch falls back to autoplay-in-view.
+   - [data-scrub-pan]:      wide image panned like a camera move. */
 function initScrubVideos(fine: boolean): void {
   gsap.utils.toArray<HTMLElement>('.scene-scrub').forEach((scene) => {
-    const video = scene.querySelector<HTMLVideoElement>('[data-scrub-video]');
     const pan = scene.querySelector<HTMLElement>('[data-scrub-pan]');
+    const scrubVideo = scene.querySelector<HTMLVideoElement>('[data-scrub-video]');
+    const autoVideo = scene.querySelector<HTMLVideoElement>('[data-autoplay-video]');
 
-    // Wide-image "camera pan" (used when there's no video yet).
     if (pan) {
       gsap.fromTo(
         pan,
@@ -118,34 +121,43 @@ function initScrubVideos(fine: boolean): void {
       );
     }
 
-    if (!video) return;
+    if (autoVideo) playInView(autoVideo);
 
-    if (fine) {
-      // Frame-scrub: map scroll progress -> video time once metadata is known.
-      const wire = () => {
-        video.pause();
-        ScrollTrigger.create({
-          trigger: scene,
-          start: 'top top',
-          end: '+=' + window.innerHeight * 2,
-          pin: true,
-          scrub: true,
-          onUpdate: (self) => {
-            if (video.duration) video.currentTime = self.progress * video.duration;
-          },
-        });
-      };
-      if (video.readyState >= 1) wire();
-      else video.addEventListener('loadedmetadata', wire, { once: true });
-    } else {
-      // Touch: play only while in view to save battery/data.
-      const io = new IntersectionObserver(
-        (entries) => entries.forEach((e) => (e.isIntersecting ? void video.play().catch(() => {}) : video.pause())),
-        { threshold: 0.25 },
-      );
-      io.observe(video);
+    if (scrubVideo) {
+      if (fine) {
+        // Frame-scrub: map scroll progress -> video time once metadata is known.
+        const wire = () => {
+          scrubVideo.pause();
+          ScrollTrigger.create({
+            trigger: scene,
+            start: 'top top',
+            end: '+=' + window.innerHeight * 2,
+            pin: true,
+            scrub: true,
+            onUpdate: (self) => {
+              if (scrubVideo.duration) scrubVideo.currentTime = self.progress * scrubVideo.duration;
+            },
+          });
+        };
+        if (scrubVideo.readyState >= 1) wire();
+        else scrubVideo.addEventListener('loadedmetadata', wire, { once: true });
+      } else {
+        playInView(scrubVideo);
+      }
     }
   });
+}
+
+/* Autoplay (muted, looping) only while in view — saves battery/data, and means no
+   scrolling is needed to start playback. Lives inside the motion layer, so
+   reduced-motion users never trigger it (they keep the poster). */
+function playInView(video: HTMLVideoElement): void {
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => (e.isIntersecting ? void video.play().catch(() => {}) : video.pause())),
+    { threshold: 0.25 },
+  );
+  io.observe(video);
 }
 
 /* Pull-quote: slow parallax drift on the full-bleed background. */
