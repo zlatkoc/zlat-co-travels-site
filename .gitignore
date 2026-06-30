@@ -14,6 +14,9 @@ dist/
 .envrc
 .direnv/
 
+# local media master store (originals + web-ready); backed up to the archive bucket
+/media-store/
+
 # os / editor
 .DS_Store
 *.log

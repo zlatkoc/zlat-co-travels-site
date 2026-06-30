@@ -16,8 +16,9 @@ export CLOUDFRONT_DISTRIBUTION_ID="EXXXXXXXXXXXXX"
 export CLOUDFRONT_DOMAIN="xxxxxxxxxxxxxx.cloudfront.net"
 
 # Media pipeline (see docs/AUTHORING.md + scripts/).
-# Local master store (originals + web-ready), NOT in git — backed up to the archive bucket.
-export MEDIA_MASTERS_DIR="$HOME/travels-media"
+# Local master store (originals + web-ready), gitignored — backed up to the archive bucket.
+# $PWD is the repo root when direnv loads this file.
+export MEDIA_MASTERS_DIR="$PWD/media-store"
 export S3_ARCHIVE_BUCKET="travels-zlat-co-archive"
 # Optional: web-ready videos/audio dir to publish (defaults to $MEDIA_MASTERS_DIR/web).
 # export MEDIA_PUBLISH_DIR="$MEDIA_MASTERS_DIR/web"

@@ -5,7 +5,7 @@ How to go from "back from a trip with a phone full of media" to a published stor
 ## Where media lives (the model)
 
 ```
-LOCAL MASTER STORE  ($MEDIA_MASTERS_DIR, on your disk, NOT in git)
+LOCAL MASTER STORE  ($MEDIA_MASTERS_DIR = media-store/ in the repo, gitignored)
   masters/            iPhone originals (HEIC, .mov) — your irreplaceable copies
   web/<trip>/         preprocessed web-ready videos, audio, posters
         │
