@@ -101,6 +101,30 @@ h3 {
   object-fit: contain;
   border-radius: 2px;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lb-img.is-ready {
+  opacity: 1;
+}
+/* Spinner shown while the next photo loads. */
+.lightbox.is-loading::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: -1.1rem 0 0 -1.1rem;
+  border: 2px solid rgba(243, 237, 226, 0.25);
+  border-top-color: rgba(243, 237, 226, 0.9);
+  border-radius: 50%;
+  animation: lb-spin 0.8s linear infinite;
+}
+@keyframes lb-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .lb-cap {
   font-family: var(--font-mono);

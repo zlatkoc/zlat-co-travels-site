@@ -52,15 +52,37 @@ export function initGallery(): void {
   let shots: Shot[] = [];
   let index = 0;
   let lastFocus: HTMLElement | null = null;
+  const preloaded = new Set<string>();
+
+  const srcAt = (i: number): string => upscale(shots[(i + shots.length) % shots.length].full);
+
+  const preload = (i: number): void => {
+    const src = srcAt(i);
+    if (preloaded.has(src)) return;
+    preloaded.add(src);
+    new Image().src = src;
+  };
 
   const show = (i: number): void => {
     index = (i + shots.length) % shots.length;
     const shot = shots[index];
-    imgEl.src = upscale(shot.full);
+    const src = srcAt(index);
+    // Loading state: hide the old frame and show a spinner until the new one decodes,
+    // so the photo never lags behind its (instant) caption.
+    overlay.classList.add('is-loading');
+    imgEl.classList.remove('is-ready');
+    imgEl.onload = () => {
+      overlay.classList.remove('is-loading');
+      imgEl.classList.add('is-ready');
+    };
+    imgEl.src = src;
     imgEl.alt = shot.caption;
     capEl.textContent = shot.caption;
     capEl.hidden = !shot.caption;
     countEl.textContent = `${index + 1} / ${shots.length}`;
+    // Preload neighbours so left/right is instant.
+    preload(index + 1);
+    preload(index - 1);
   };
 
   const open = (gallery: HTMLElement, startIndex: number): void => {
