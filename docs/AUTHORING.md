@@ -59,6 +59,24 @@ audio:              # optional — omit for silent
   # src: https://travels.zlat.co/media/iceland/ambient.mp3   # only for mode: track
 ```
 
+### The media map (`M`)
+
+Keep every media reference for a trip in one `const M = { … }` map at the top of the MDX body, then
+use `M.hero`, `M.coast`, … in the scenes — one place to see and swap every URL/import:
+
+```mdx
+import hero from './_media/iceland/hero.jpg';   // local photo → Astro optimizes
+
+export const M = {
+  hero,
+  coast: 'https://travels.zlat.co/media/iceland/coast.mp4',     // video on the media CDN
+  ambient: 'https://travels.zlat.co/media/iceland/ambient.mp3', // audio on the media CDN
+};
+
+<Hero image={M.hero} … />
+<ScrubVideo video={M.coast} poster="…" />
+```
+
 ## 2. Photos
 
 **Prep (you do this once per photo):**
@@ -146,10 +164,32 @@ scripts/publish-media.sh     # web-ready videos/audio → serving bucket media/ 
 Photos don't need a script — they're committed to the repo and ship through the normal
 `git push` → CI build → deploy. Configure paths/buckets in `.envrc` (see `.envrc.example`).
 
+## Licensing & credits
+
+Publish only media you have the right to:
+- **Your own photos/video/audio** — fine; just strip EXIF/GPS from photos first (above).
+- **Stock or someone else's** — use properly-licensed sources and honor attribution where the
+  license requires it (e.g. some Creative Commons terms). Keep a note of sources/credits for
+  anything not yours.
+- **Music** — royalty-free or licensed; a background track still needs clearance.
+
+> The demo Iceland trip uses free stock (Unsplash/Pexels) + sample video clips purely as
+> placeholders — replace them before treating that trip as "real".
+
+## Performance & accessibility
+
+- **Page weight** — a handful of strong photos beats dozens; keep them web-sized (~2400 px) so a
+  trip page stays light. Astro lazy-loads below-the-fold images and only ships scene JS when needed.
+- **Reduced motion** — visitors with "reduce motion" set get **no autoplay or scrubbing**; they see
+  the **poster** frames and static images. So every video needs a good poster, and the story must
+  still read with nothing moving.
+
 ## Pre-publish checklist
 
 - [ ] Both `*.en.mdx` and `*.sl.mdx` written, frontmatter complete
 - [ ] Photos in `_media/<trip>/`, EXIF stripped, imported in the MDX
+- [ ] Media you don't own is properly licensed; credits noted
+- [ ] Every video has a poster; story still reads under "reduce motion"
 - [ ] Videos preprocessed + posters, published to `media/`, URLs referenced
 - [ ] Audio (if any) published + wired; `audio` mode set
 - [ ] `place` / `coord` / `meta` on each scene for the expedition HUD
