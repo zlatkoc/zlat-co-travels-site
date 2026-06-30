@@ -27,6 +27,7 @@ const themeVars = {
 };
 
 const indexHref = `/${lang}/`;
+const year = new Date().getFullYear();
 ---
 
 <BaseLayout title={`${title} — ${t(lang, 'site.title')}`} description={summary} lang={lang} alternates={alternates} themeVars={themeVars}>
@@ -45,6 +46,7 @@ const indexHref = `/${lang}/`;
 
   <footer class="trip-footer">
     <a href={indexHref}>{t(lang, 'trip.back')}</a>
+    <p class="copyright">© {year} Zlatko Čajić</p>
   </footer>
 
   <script>
@@ -85,6 +87,12 @@ const indexHref = `/${lang}/`;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       font-size: var(--step--1);
+    }
+    .trip-footer .copyright {
+      margin: 1.4rem 0 0;
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      opacity: 0.6;
     }
   </style>
 </BaseLayout>

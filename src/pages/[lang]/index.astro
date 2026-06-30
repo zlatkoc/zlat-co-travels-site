@@ -12,6 +12,7 @@ export function getStaticPaths() {
 const { lang } = Astro.props as { lang: Locale };
 const trips = await getTripsByLocale(lang);
 const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
+const year = new Date().getFullYear();
 ---
 
 <BaseLayout title={t(lang, 'site.title')} description={t(lang, 'index.intro')} lang={lang} alternates={alternates}>
@@ -32,6 +33,10 @@ const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
       ))}
     </ul>
   </main>
+
+  <footer class="index-footer">
+    <p>© {year} Zlatko Čajić</p>
+  </footer>
 </BaseLayout>
 
 <style>
@@ -69,5 +74,17 @@ const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
     gap: clamp(1.2rem, 0.6rem + 2vw, 2.4rem);
+  }
+  .index-footer {
+    padding: var(--gutter) var(--gutter) calc(var(--gutter) * 1.5);
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .index-footer p {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
   }
 </style>
