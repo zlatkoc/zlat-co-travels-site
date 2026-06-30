@@ -5,8 +5,9 @@
      none      — videos autoplay muted in view; no sound UI.
      track     — one looping <audio id="trip-audio"> for the page; videos stay muted.
                  The toggle starts/stops it (first start needs the tap = user gesture).
-     per-video — videos autoplay muted; after one tap the most-visible video is
-                 unmuted, the rest muted. Scrolling switches which one has sound.
+     per-video — videos autoplay muted; one tap enables sound on the active video
+                 (the first video if none has been seen yet), the rest muted. The
+                 active video keeps playing as a soundtrack until the next one scrolls in.
 
    Browser rule this works around: sound never starts without a user gesture. The
    single toggle tap is that gesture; after it, muting/unmuting is free.
@@ -93,12 +94,16 @@ export function initTripAudio(): void {
   toggle.hidden = false;
   toggle.addEventListener('click', () => {
     soundOn = !soundOn;
-    // On the first enable, "unlock" every video within this gesture (a muted play)
-    // so a later video can start with sound on its own — required for iOS Safari.
-    // render() immediately pauses the ones that shouldn't be playing.
-    if (soundOn && mode === 'per-video' && !unlocked) {
-      unlocked = true;
-      for (const v of videos) void v.play().catch(() => {});
+    if (soundOn && mode === 'per-video') {
+      // "Unlock" every video within this gesture (a muted play) so playback/unmute
+      // works on its own afterwards — required for iOS Safari.
+      if (!unlocked) {
+        unlocked = true;
+        for (const v of videos) void v.play().catch(() => {});
+      }
+      // If no video has been seen yet (sound enabled at the top), start the first
+      // one immediately so the viewer hears audio right away.
+      if (!activeVideo && videos.length) activeVideo = videos[0];
     }
     if (track) {
       if (soundOn) void track.play().catch(() => {});
