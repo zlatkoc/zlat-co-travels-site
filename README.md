@@ -45,6 +45,7 @@ src/
   styles/                 tokens.css, global.css
 scripts/                  archive-backup.sh, publish-media.sh
 docs/AUTHORING.md         how to prepare + publish a trip's media
+docs/TODO.md              outstanding work + ideas
 ```
 
 ## Adding a trip
