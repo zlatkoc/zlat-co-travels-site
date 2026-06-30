@@ -22,6 +22,7 @@ export function initTripAudio(): void {
   const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-autoplay-video]'));
 
   let soundOn = false;
+  let unlocked = false;
   // The "active" video carries sound in per-video mode. It stays active even after
   // scrolling off-screen, so its audio continues over photos/text as a soundtrack,
   // until a different video scrolls into view and takes over.
@@ -92,11 +93,18 @@ export function initTripAudio(): void {
   toggle.hidden = false;
   toggle.addEventListener('click', () => {
     soundOn = !soundOn;
+    // On the first enable, "unlock" every video within this gesture (a muted play)
+    // so a later video can start with sound on its own — required for iOS Safari.
+    // render() immediately pauses the ones that shouldn't be playing.
+    if (soundOn && mode === 'per-video' && !unlocked) {
+      unlocked = true;
+      for (const v of videos) void v.play().catch(() => {});
+    }
     if (track) {
       if (soundOn) void track.play().catch(() => {});
       else track.pause();
     }
     sync();
-    render(); // unmute the current video inside the gesture
+    render(); // settle playback/mute state inside the gesture
   });
 }
