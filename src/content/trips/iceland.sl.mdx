@@ -9,8 +9,8 @@ location:
   name: Islandija
   lat: 64.96
   lng: -19.02
-heroImage: ./_media/iceland/hero.jpg
-heroAlt: Slap pod bledim polnočnim nebom
+heroImage: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=2400&q=80&fm=jpg&fit=crop"
+heroAlt: Slap pod bledim severnim nebom
 theme:
   accent: "#2f6f7e"
 order: 1
@@ -24,22 +24,27 @@ import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
 import PullQuote from '../../components/scenes/PullQuote.astro';
 import Gallery from '../../components/scenes/Gallery.astro';
 
-import hero from './_media/iceland/hero.jpg';
-import glacier1 from './_media/iceland/glacier-1.jpg';
-import glacier2 from './_media/iceland/glacier-2.jpg';
-import glacier3 from './_media/iceland/glacier-3.jpg';
-import coastPano from './_media/iceland/coast-pano.jpg';
-import blackSand from './_media/iceland/black-sand.jpg';
-import g1 from './_media/iceland/g1.jpg';
-import g2 from './_media/iceland/g2.jpg';
-import g3 from './_media/iceland/g3.jpg';
-import g4 from './_media/iceland/g4.jpg';
-import g5 from './_media/iceland/g5.jpg';
-import gWide from './_media/iceland/g-wide.jpg';
+{/* Vsa medijska vsebina je hotlinkana iz brezplačnih virov (Unsplash / Pexels) + vzorčni video.
+    URL-je kasneje zamenjaj s svojimi — nič od tega ni shranjeno v repozitoriju. */}
+export const M = {
+  hero: 'https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=2400&q=80&fm=jpg&fit=crop',
+  sticky1: 'https://images.unsplash.com/photo-1488866022504-f2584929ca5f?w=1900&q=80&fm=jpg&fit=crop',
+  sticky2: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1900&q=80&fm=jpg&fit=crop',
+  sticky3: 'https://images.unsplash.com/photo-1502786129293-79981df4e689?w=1900&q=80&fm=jpg&fit=crop',
+  video: 'https://download.samplelib.com/mp4/sample-10s.mp4',
+  videoPoster: 'https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&w=1600',
+  quote: 'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?w=2400&q=80&fm=jpg&fit=crop',
+  gWide: 'https://images.pexels.com/photos/388830/pexels-photo-388830.jpeg?auto=compress&w=2000',
+  g1: 'https://images.pexels.com/photos/1559821/pexels-photo-1559821.jpeg?auto=compress&w=1100',
+  g2: 'https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?auto=compress&w=1100',
+  g3: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&w=1100',
+  g4: 'https://images.pexels.com/photos/2873669/pexels-photo-2873669.jpeg?auto=compress&w=1100',
+  g5: 'https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?w=1100&q=80&fm=jpg&fit=crop',
+};
 
 <Hero
-  image={hero}
-  alt="Slap pod bledim polnočnim nebom"
+  image={M.hero}
+  alt="Slap pod bledim severnim nebom"
   eyebrow="Zapiski s poti — št. 01"
   title="Sedem dni okoli Islandije"
   subtitle="Po daljši poti okoli Ring Roada."
@@ -59,7 +64,7 @@ Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo nared
 <StickyPhoto
   steps={[
     {
-      image: glacier1,
+      image: M.sticky1,
       alt: 'Ledeniška laguna z ledom',
       title: 'Jökulsárlón',
       text: 'Laguna je bila glasnejša, kot smo pričakovali — led je pokal in se premikal, nekje izven pogleda.',
@@ -68,7 +73,7 @@ Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo nared
       meta: '3. dan — ledeniška laguna',
     },
     {
-      image: glacier2,
+      image: M.sticky2,
       alt: 'Bližnji posnetek modrega ledu',
       title: 'Tisoč let, gor ali dol',
       text: 'Nekateri kosi so starejši od katerega koli mesta. Modrina je stisk — zrak, iztisnjen skozi stoletja, dokler ne ostane le barva.',
@@ -77,7 +82,7 @@ Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo nared
       meta: '3. dan — led od blizu',
     },
     {
-      image: glacier3,
+      image: M.sticky3,
       alt: 'Led na črni plaži',
       title: 'Diamantna plaža',
       text: 'Dolvodno plima manjše kose vrne na črno peščeno obalo, kjer ležijo kot steklo, dokler jih morje spet ne vzame.',
@@ -89,16 +94,17 @@ Načrta ni bilo — samo cesta, en teden in vse, kar se je vreme odločilo nared
 />
 
 <ScrubVideo
-  panImage={coastPano}
+  video={M.video}
+  poster={M.videoPoster}
   alt="Južna obala, ki se razteza proti oddaljenim pečinam"
-  caption="Južna obala — pomik sledi cesti"
+  caption="Južna obala — drsaj za vožnjo proti zahodu"
   place="Južna obala"
   coord="63.531° S, 19.511° Z"
   meta="4. dan — proti zahodu"
 />
 
 <PullQuote
-  image={blackSand}
+  image={M.quote}
   alt="Črn bazaltni pesek pod sivim nebom"
   cite="Reynisfjara"
   place="Reynisfjara"
@@ -121,11 +127,11 @@ preprosto je zaokrožila in nas pričakala na drugi strani.
   coord="64.963° S, 19.021° Z"
   meta="Sedem dni, ena cesta"
   items={[
-    { image: gWide, alt: 'Severni sij nad temnim grebenom', wide: true },
-    { image: g1, alt: 'Polje v nizki svetlobi' },
-    { image: g2, alt: 'Kmetija s travnato streho' },
-    { image: g3, alt: 'Fjord pod oblaki' },
-    { image: g4, alt: 'Osamljen cestni znak' },
-    { image: g5, alt: 'Megla nad vodo' },
+    { image: M.gWide, alt: 'Širna severna pokrajina', wide: true },
+    { image: M.g1, alt: 'Polje v nizki svetlobi' },
+    { image: M.g2, alt: 'Gorska cesta' },
+    { image: M.g3, alt: 'Fjord pod oblaki' },
+    { image: M.g4, alt: 'Obala v mraku' },
+    { image: M.g5, alt: 'Megla nad vodo' },
   ]}
 />

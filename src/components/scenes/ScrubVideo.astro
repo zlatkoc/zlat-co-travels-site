@@ -1,15 +1,12 @@
 ---
-import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
 /* Two modes:
    - `video` (external URL): desktop scrubs currentTime by scroll; touch autoplay-loops in view.
-   - `panImage` (wide local photo): scroll pans it horizontally like a camera move.
-   Use panImage until the video host is chosen — components stay host-agnostic. */
+   - `panImage` (wide remote photo URL): scroll pans it horizontally like a camera move.
+   Both are hotlinked — nothing is bundled. */
 interface Props {
   video?: string;
   poster?: string;
-  panImage?: ImageMetadata;
+  panImage?: string;
   alt?: string;
   caption?: string;
   place?: string;
@@ -33,7 +30,7 @@ const { video, poster, panImage, alt = '', caption, place, coord, meta } = Astro
       ></video>
     ) : panImage ? (
       <div class="scrub-pan" data-scrub-pan>
-        <Picture src={panImage} alt={alt} formats={['avif', 'webp']} widths={[1280, 1920, 2560, 3200]} sizes="180vw" loading="lazy" />
+        <img src={panImage} alt={alt} loading="lazy" decoding="async" />
       </div>
     ) : null}
   </div>

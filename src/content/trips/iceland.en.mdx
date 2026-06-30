@@ -9,8 +9,8 @@ location:
   name: Iceland
   lat: 64.96
   lng: -19.02
-heroImage: ./_media/iceland/hero.jpg
-heroAlt: A waterfall under a pale midnight sky
+heroImage: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=2400&q=80&fm=jpg&fit=crop"
+heroAlt: A waterfall under a pale northern sky
 theme:
   accent: "#2f6f7e"
 order: 1
@@ -24,22 +24,27 @@ import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
 import PullQuote from '../../components/scenes/PullQuote.astro';
 import Gallery from '../../components/scenes/Gallery.astro';
 
-import hero from './_media/iceland/hero.jpg';
-import glacier1 from './_media/iceland/glacier-1.jpg';
-import glacier2 from './_media/iceland/glacier-2.jpg';
-import glacier3 from './_media/iceland/glacier-3.jpg';
-import coastPano from './_media/iceland/coast-pano.jpg';
-import blackSand from './_media/iceland/black-sand.jpg';
-import g1 from './_media/iceland/g1.jpg';
-import g2 from './_media/iceland/g2.jpg';
-import g3 from './_media/iceland/g3.jpg';
-import g4 from './_media/iceland/g4.jpg';
-import g5 from './_media/iceland/g5.jpg';
-import gWide from './_media/iceland/g-wide.jpg';
+{/* All media is hotlinked from free stock (Unsplash / Pexels) + a sample video clip.
+    Swap these URLs for your own later — nothing here is stored in the repo. */}
+export const M = {
+  hero: 'https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=2400&q=80&fm=jpg&fit=crop',
+  sticky1: 'https://images.unsplash.com/photo-1488866022504-f2584929ca5f?w=1900&q=80&fm=jpg&fit=crop',
+  sticky2: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1900&q=80&fm=jpg&fit=crop',
+  sticky3: 'https://images.unsplash.com/photo-1502786129293-79981df4e689?w=1900&q=80&fm=jpg&fit=crop',
+  video: 'https://download.samplelib.com/mp4/sample-10s.mp4',
+  videoPoster: 'https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&w=1600',
+  quote: 'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?w=2400&q=80&fm=jpg&fit=crop',
+  gWide: 'https://images.pexels.com/photos/388830/pexels-photo-388830.jpeg?auto=compress&w=2000',
+  g1: 'https://images.pexels.com/photos/1559821/pexels-photo-1559821.jpeg?auto=compress&w=1100',
+  g2: 'https://images.pexels.com/photos/2113566/pexels-photo-2113566.jpeg?auto=compress&w=1100',
+  g3: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&w=1100',
+  g4: 'https://images.pexels.com/photos/2873669/pexels-photo-2873669.jpeg?auto=compress&w=1100',
+  g5: 'https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?w=1100&q=80&fm=jpg&fit=crop',
+};
 
 <Hero
-  image={hero}
-  alt="A waterfall under a pale midnight sky"
+  image={M.hero}
+  alt="A waterfall under a pale northern sky"
   eyebrow="Field Notes — No. 01"
   title="Seven Days Around Iceland"
   subtitle="The long way around the Ring Road."
@@ -60,7 +65,7 @@ with us.
 <StickyPhoto
   steps={[
     {
-      image: glacier1,
+      image: M.sticky1,
       alt: 'A glacial lagoon dotted with ice',
       title: 'Jökulsárlón',
       text: 'The lagoon was louder than expected — ice cracking and shifting, calving off the glacier somewhere out of sight.',
@@ -69,7 +74,7 @@ with us.
       meta: 'Day 3 — glacial lagoon',
     },
     {
-      image: glacier2,
+      image: M.sticky2,
       alt: 'Close detail of blue glacial ice',
       title: 'A thousand years, give or take',
       text: 'Some of these blocks are older than any city. The blue is compression — air squeezed out over centuries until only colour is left.',
@@ -78,7 +83,7 @@ with us.
       meta: 'Day 3 — the ice up close',
     },
     {
-      image: glacier3,
+      image: M.sticky3,
       alt: 'Ice washed up on a black beach',
       title: 'Diamond Beach',
       text: 'Downstream, the tide returns the smaller pieces to a black-sand shore, where they sit like glass until the sea takes them back.',
@@ -90,16 +95,17 @@ with us.
 />
 
 <ScrubVideo
-  panImage={coastPano}
+  video={M.video}
+  poster={M.videoPoster}
   alt="The south coast stretching toward distant cliffs"
-  caption="The south coast — pan to follow the road"
+  caption="The south coast — scroll to drive west"
   place="South Coast"
   coord="63.531° N, 19.511° W"
   meta="Day 4 — driving west"
 />
 
 <PullQuote
-  image={blackSand}
+  image={M.quote}
   alt="Black basalt sand under a grey sky"
   cite="Reynisfjara"
   place="Reynisfjara"
@@ -123,11 +129,11 @@ didn't — it simply circled around and met us on the other side.
   coord="64.963° N, 19.021° W"
   meta="Seven days, one road"
   items={[
-    { image: gWide, alt: 'Aurora over a dark ridge', wide: true },
-    { image: g1, alt: 'A field in low light' },
-    { image: g2, alt: 'A turf-roofed farmhouse' },
-    { image: g3, alt: 'A fjord under cloud' },
-    { image: g4, alt: 'A lone road sign' },
-    { image: g5, alt: 'Mist over water' },
+    { image: M.gWide, alt: 'A wide northern landscape', wide: true },
+    { image: M.g1, alt: 'A field in low light' },
+    { image: M.g2, alt: 'A mountain road' },
+    { image: M.g3, alt: 'A fjord under cloud' },
+    { image: M.g4, alt: 'Coastline at dusk' },
+    { image: M.g5, alt: 'Mist over water' },
   ]}
 />

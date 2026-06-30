@@ -1,9 +1,7 @@
 ---
-import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
 interface Item {
-  image: ImageMetadata;
+  /** Remote image URL (hotlinked). */
+  image: string;
   alt?: string;
   /** Optional: make a photo span two columns in the masonry. */
   wide?: boolean;
@@ -21,7 +19,7 @@ const { items, place, coord, meta } = Astro.props;
   <div class="gallery-grid">
     {items.map((item) => (
       <figure class:list={['gallery-item', { wide: item.wide }]} data-reveal>
-        <Picture src={item.image} alt={item.alt ?? ''} formats={['avif', 'webp']} widths={[480, 768, 1280]} sizes="(max-width: 640px) 100vw, 45vw" loading="lazy" />
+        <img src={item.image} alt={item.alt ?? ''} loading="lazy" decoding="async" />
       </figure>
     ))}
   </div>
