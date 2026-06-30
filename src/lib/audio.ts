@@ -77,14 +77,17 @@ export function initTripAudio(): void {
   if (!toggle || mode === 'none') return;
 
   const track = mode === 'track' ? (document.getElementById('trip-audio') as HTMLAudioElement | null) : null;
-  const word = mode === 'track' ? 'Music' : 'Sound';
+  // Localized labels rendered server-side by SoundToggle.
+  const labelOn = toggle.dataset.labelOn ?? 'Sound on';
+  const labelOff = toggle.dataset.labelOff ?? 'Sound off';
 
   const sync = (): void => {
+    const label = soundOn ? labelOn : labelOff;
     toggle.setAttribute('aria-pressed', String(soundOn));
-    toggle.setAttribute('aria-label', `${word}: ${soundOn ? 'on' : 'off'}`);
+    toggle.setAttribute('aria-label', label);
     toggle.classList.toggle('is-on', soundOn);
     const text = toggle.querySelector('[data-sound-text]');
-    if (text) text.textContent = `${word} ${soundOn ? 'on' : 'off'}`;
+    if (text) text.textContent = label;
     const off = toggle.querySelector<HTMLElement>('[data-ico-off]');
     const on = toggle.querySelector<HTMLElement>('[data-ico-on]');
     if (off) off.hidden = soundOn;

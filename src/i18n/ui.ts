@@ -19,6 +19,8 @@ export const ui = {
     'trip.readMore': 'Read the trip',
     'hud.day': 'Day',
     'footer.next': 'Next trip',
+    'sound.on': 'Sound on',
+    'sound.off': 'Sound off',
   },
   sl: {
     'site.title': 'Popotovanja',
@@ -29,6 +31,8 @@ export const ui = {
     'trip.readMore': 'Preberi popotovanje',
     'hud.day': 'Dan',
     'footer.next': 'Naslednje popotovanje',
+    'sound.on': 'Zvok vklopljen',
+    'sound.off': 'Zvok izklopljen',
   },
 } as const;
 

@@ -34,7 +34,7 @@ const indexHref = `/${lang}/`;
 
   <LanguageSwitcher current={lang} alternates={alternates} />
   <ExpeditionHUD />
-  {audioMode !== 'none' && <SoundToggle mode={audioMode} />}
+  {audioMode !== 'none' && <SoundToggle mode={audioMode} lang={lang} />}
   {audioMode === 'track' && audioSrc && (
     <audio id="trip-audio" src={audioSrc} loop preload="none"></audio>
   )}

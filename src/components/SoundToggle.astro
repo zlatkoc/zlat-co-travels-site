@@ -1,19 +1,34 @@
 ---
 /* Fixed sound control. Hidden until lib/audio.ts enables it (sound can't work
-   without JS + a user gesture). `mode` tells the controller how to behave. */
+   without JS + a user gesture). `mode` tells the controller how to behave.
+   Localized on/off labels travel as data attributes so the JS can swap them. */
+import { t, type Locale } from '../i18n/ui';
+
 interface Props {
   mode: 'track' | 'per-video';
+  lang: Locale;
 }
-const { mode } = Astro.props;
-const label = mode === 'track' ? 'Music' : 'Sound';
+const { mode, lang } = Astro.props;
+const onLabel = t(lang, 'sound.on');
+const offLabel = t(lang, 'sound.off');
 ---
 
-<button id="sound-toggle" class="sound" type="button" data-mode={mode} aria-pressed="false" aria-label={`${label}: off`} hidden>
+<button
+  id="sound-toggle"
+  class="sound"
+  type="button"
+  data-mode={mode}
+  data-label-on={onLabel}
+  data-label-off={offLabel}
+  aria-pressed="false"
+  aria-label={offLabel}
+  hidden
+>
   <span class="sound-ico" aria-hidden="true">
     <span data-ico-off>🔈</span>
     <span data-ico-on hidden>🔊</span>
   </span>
-  <span class="sound-text" data-sound-text>{label} off</span>
+  <span class="sound-text" data-sound-text>{offLabel}</span>
 </button>
 
 <style>
