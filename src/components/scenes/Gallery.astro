@@ -1,9 +1,13 @@
 ---
 interface Item {
-  /** Remote image URL (hotlinked). */
+  /** Remote image URL (hotlinked) used in the grid. */
   image: string;
   alt?: string;
-  /** Optional: make a photo span two columns in the masonry. */
+  /** Visible label under the photo and in the lightbox. */
+  caption?: string;
+  /** Optional larger URL for the lightbox; otherwise the grid image is upscaled. */
+  full?: string;
+  /** Make a photo span two columns in the masonry. */
   wide?: boolean;
 }
 interface Props {
@@ -15,11 +19,22 @@ interface Props {
 const { items, place, coord, meta } = Astro.props;
 ---
 
-<section class="scene-gallery" data-place={place} data-coord={coord} data-meta={meta}>
+<section class="scene-gallery" data-gallery data-place={place} data-coord={coord} data-meta={meta}>
   <div class="gallery-grid">
-    {items.map((item) => (
+    {items.map((item, i) => (
       <figure class:list={['gallery-item', { wide: item.wide }]} data-reveal>
-        <img src={item.image} alt={item.alt ?? ''} loading="lazy" decoding="async" />
+        <button
+          type="button"
+          class="gallery-open"
+          data-gallery-item
+          data-index={i}
+          data-full={item.full ?? item.image}
+          data-caption={item.caption ?? ''}
+          aria-label={item.caption ? `Open photo: ${item.caption}` : 'Open photo'}
+        >
+          <img src={item.image} alt={item.alt ?? item.caption ?? ''} loading="lazy" decoding="async" />
+        </button>
+        {item.caption && <figcaption>{item.caption}</figcaption>}
       </figure>
     ))}
   </div>
@@ -40,11 +55,18 @@ const { items, place, coord, meta } = Astro.props;
   }
   .gallery-item {
     margin: 0;
-    overflow: hidden;
-    border-radius: 3px;
-    background: var(--paper);
   }
-  .gallery-item :global(img) {
+  .gallery-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--paper);
+    cursor: zoom-in;
+  }
+  .gallery-open img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -54,11 +76,22 @@ const { items, place, coord, meta } = Astro.props;
   .gallery-item.wide {
     grid-column: span 2;
   }
-  .gallery-item.wide :global(img) {
+  .gallery-item.wide .gallery-open img {
     aspect-ratio: 16 / 9;
   }
+  .gallery-item figcaption {
+    margin-top: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  .gallery-open:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
   @media (hover: hover) {
-    .gallery-item:hover :global(img) {
+    .gallery-open:hover img {
       transform: scale(1.04);
     }
   }
