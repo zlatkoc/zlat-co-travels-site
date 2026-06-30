@@ -10,13 +10,16 @@ built to work on desktop, tablet, and phone. Static Astro site, deployed to **tr
 - **MDX content collections** — one file per trip per language, type-checked frontmatter.
 - **astro:assets** — build-time AVIF/WebP + responsive `srcset`.
 - **i18n** — English + Slovenian, path-based (`/en/…`, `/sl/…`).
+- **Self-hosted fonts** — Fraunces (display), Source Serif 4 (body), IBM Plex Mono (UI); no Google Fonts.
+- **Per-trip audio** — silent / one soundtrack / per-video, with a Sound toggle and an `M` shortcut.
+- **Gallery lightbox** — captions, keyboard + swipe navigation, neighbour preloading.
 
 ## Local development
 
-The toolchain is pinned with a project-local **flox** environment (Node, git-lfs). With direnv:
+The toolchain is pinned with a project-local **flox** environment (Node). With direnv:
 
 ```bash
-cp .envrc.example .envrc   # fill in AWS profile + hosted zone, then:
+cp .envrc.example .envrc   # fill in your values, then:
 direnv allow               # runs `use flox`
 ```
 
@@ -81,18 +84,19 @@ doesn't crop them.
 
 ## Deployment (AWS)
 
-CI: `.github/workflows/deploy.yml` builds and publishes on push to `main`. It's inert until the AWS
-resources and repo variables exist.
+Live at **https://travels.zlat.co**. `.github/workflows/deploy.yml` builds and deploys on every push
+to `main` via GitHub OIDC → IAM role (no stored keys): `npm run build` → `aws s3 sync` → CloudFront
+invalidation.
 
-One-time infra:
-1. **S3 bucket** — private (Block Public Access on); holds `dist/`.
-2. **CloudFront** — origin = the bucket via **OAC**; default root object `index.html`.
-3. **ACM certificate** for `travels.zlat.co` in **us-east-1** (required for CloudFront).
-4. **DNS** — `travels.zlat.co` CNAME/alias → the CloudFront distribution (zone `zlat.co`).
-5. **GitHub OIDC** — an IAM role the workflow assumes (no stored keys).
+Provisioned infra (account `069104960135`, `us-east-1`):
+- **S3 `travels-zlat-co-site`** (private, OAC) holds the built site; CloudFront serves it with the
+  `*.zlat.co` ACM cert and a Route 53 alias for `travels.zlat.co`. A CloudFront Function rewrites
+  directory URLs to `index.html`.
+- **`media/` prefix** on the same bucket holds videos/audio (published via
+  `scripts/publish-media.sh`); the deploy sync **excludes `media/*`** so it's never wiped.
+- **S3 `travels-zlat-co-archive`** (private, versioned) backs up the local media master store.
 
-Repo **Variables** (Settings → Secrets and variables → Actions):
-`AWS_REGION`, `AWS_ROLE_ARN`, `S3_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`.
+Repo **Variables** (already set): `AWS_REGION`, `AWS_ROLE_ARN`, `S3_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`.
 
 Caching: `/_astro/*` hashed assets get `max-age=31536000,immutable`; HTML is `must-revalidate`;
 each deploy invalidates CloudFront.
