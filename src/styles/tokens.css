@@ -14,9 +14,9 @@
   --hud-ink: #f3ede2;
 
   /* Type */
-  --font-display: "Georgia", "Times New Roman", serif;
-  --font-body: "Georgia", "Times New Roman", serif;
-  --font-mono: ui-monospace, "SF Mono", "Menlo", monospace;
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Menlo", monospace;
 
   /* Fluid type scale — readable phone → desktop */
   --step--1: clamp(0.83rem, 0.78rem + 0.22vw, 0.95rem);
