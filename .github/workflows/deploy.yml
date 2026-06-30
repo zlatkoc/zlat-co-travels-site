@@ -25,8 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true # photos are Git LFS — fetch real files, not pointers
 
       - uses: actions/setup-node@v4
         with:
@@ -43,11 +41,14 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       # Hashed assets in /_astro are immutable → cache hard. HTML → revalidate.
+      # `media/*` is published separately (scripts/publish-media.sh) — never let the
+      # site deploy delete it.
       - name: Sync hashed assets (long cache)
         run: |
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
             --delete \
             --exclude "*.html" \
+            --exclude "media/*" \
             --cache-control "public,max-age=31536000,immutable"
 
       - name: Sync HTML (no long cache)
@@ -55,6 +56,7 @@ jobs:
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
             --delete \
             --exclude "*" --include "*.html" \
+            --exclude "media/*" \
             --cache-control "public,max-age=0,must-revalidate"
 
       - name: Invalidate CloudFront

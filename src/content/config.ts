@@ -6,24 +6,26 @@ import { glob } from 'astro/loaders';
    (e.g. /en/iceland, /sl/islandija). All media is hotlinked (remote URLs), not bundled. */
 const trips = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/trips' }),
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    date: z.coerce.date(),
-    lang: z.enum(['en', 'sl']),
-    slug: z.string(), // localized URL slug
-    key: z.string(), // shared id across languages (e.g. "iceland") for the switcher
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      summary: z.string(),
+      date: z.coerce.date(),
+      lang: z.enum(['en', 'sl']),
+      slug: z.string(), // localized URL slug
+      key: z.string(), // shared id across languages (e.g. "iceland") for the switcher
 
-    location: z.object({
-      name: z.string(),
-      lat: z.number(),
-      lng: z.number(),
-    }),
+      location: z.object({
+        name: z.string(),
+        lat: z.number(),
+        lng: z.number(),
+      }),
 
-    heroImage: z.string().url(), // remote URL (hotlinked)
-    heroAlt: z.string().default(''),
-    heroVideo: z.string().url().optional(),
-    heroPoster: z.string().url().optional(),
+      // Local imported image (optimized) OR a remote URL (hotlinked).
+      heroImage: z.union([image(), z.string().url()]),
+      heroAlt: z.string().default(''),
+      heroVideo: z.string().url().optional(),
+      heroPoster: z.string().url().optional(),
 
     // Per-trip theme overrides (fall back to tokens.css defaults).
     theme: z

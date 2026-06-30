@@ -1,7 +1,10 @@
 ---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  /** Remote image URL (hotlinked). */
-  image: string;
+  /** Local imported image (optimized) OR a remote URL (hotlinked). */
+  image: ImageMetadata | string;
   alt?: string;
   cite?: string;
   place?: string;
@@ -13,7 +16,11 @@ const { image, alt = '', cite, place, coord, meta } = Astro.props;
 
 <section class="scene-quote bleed" data-place={place} data-coord={coord} data-meta={meta}>
   <div class="quote-bg" data-quote-bg>
-    <img src={image} alt={alt} loading="lazy" decoding="async" />
+    {typeof image === 'string' ? (
+      <img src={image} alt={alt} loading="lazy" decoding="async" />
+    ) : (
+      <Picture src={image} alt={alt} formats={['avif', 'webp']} widths={[768, 1280, 1920, 2560]} sizes="100vw" loading="lazy" />
+    )}
   </div>
   <figure class="quote-copy">
     <blockquote><slot /></blockquote>

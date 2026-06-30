@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import type { Trip } from '../lib/trips';
 
 interface Props {
@@ -12,7 +13,11 @@ const year = date.getFullYear();
 
 <a class="card" href={href}>
   <div class="card-media">
-    <img src={heroImage} alt={heroAlt} loading="lazy" decoding="async" />
+    {typeof heroImage === 'string' ? (
+      <img src={heroImage} alt={heroAlt} loading="lazy" decoding="async" />
+    ) : (
+      <Picture src={heroImage} alt={heroAlt} formats={['avif', 'webp']} widths={[480, 768, 1100]} sizes="(max-width: 720px) 100vw, 50vw" loading="lazy" />
+    )}
   </div>
   <div class="card-body">
     <p class="card-eyebrow">{location.name} · {year}</p>

@@ -1,7 +1,10 @@
 ---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Step {
-  /** Remote image URL (hotlinked). */
-  image: string;
+  /** Local imported image (optimized) OR a remote URL (hotlinked). */
+  image: ImageMetadata | string;
   alt?: string;
   title?: string;
   text: string;
@@ -22,7 +25,11 @@ const { steps } = Astro.props;
     <div class="sticky-frame">
       {steps.map((step, i) => (
         <div class="sticky-layer" data-sticky-layer style={`z-index:${i + 1}`}>
-          <img src={step.image} alt={step.alt ?? ''} loading="lazy" decoding="async" />
+          {typeof step.image === 'string' ? (
+            <img src={step.image} alt={step.alt ?? ''} loading="lazy" decoding="async" />
+          ) : (
+            <Picture src={step.image} alt={step.alt ?? ''} formats={['avif', 'webp']} widths={[768, 1280, 1920]} sizes="100vw" loading="lazy" />
+          )}
         </div>
       ))}
       <div class="sticky-wash" aria-hidden="true"></div>

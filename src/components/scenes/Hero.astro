@@ -1,7 +1,10 @@
 ---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  /** Remote image URL (hotlinked, not bundled). */
-  image: string;
+  /** Local imported image (optimized by Astro) OR a remote URL (hotlinked). */
+  image: ImageMetadata | string;
   alt?: string;
   eyebrow?: string;
   title: string;
@@ -35,8 +38,10 @@ const { image, alt = '', eyebrow, title, subtitle, video, poster, place, coord, 
         poster={poster}
         src={video}
       ></video>
-    ) : (
+    ) : typeof image === 'string' ? (
       <img src={image} alt={alt} loading="eager" fetchpriority="high" decoding="async" />
+    ) : (
+      <Picture src={image} alt={alt} formats={['avif', 'webp']} widths={[768, 1280, 1920, 2560]} sizes="100vw" loading="eager" />
     )}
   </div>
 

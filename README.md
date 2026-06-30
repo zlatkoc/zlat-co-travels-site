@@ -30,31 +30,34 @@ npm run preview  # serve the build
 npm run check    # type-check
 ```
 
-> Photos are stored with **Git LFS**. After cloning, run `git lfs pull` to fetch them.
-
 ## Project layout
 
 ```
 src/
   content/trips/          one MDX per trip per language (iceland.en.mdx, iceland.sl.mdx)
-    _media/<trip>/        trip photos (Git LFS)
+    _media/<trip>/        trip photos (committed, optimized by Astro at build)
   components/scenes/       Hero, ReadingBlock, StickyPhoto, ScrubVideo, PullQuote, Gallery
-  components/              ExpeditionHUD, LanguageSwitcher, TripCard
+  components/              ExpeditionHUD, LanguageSwitcher, TripCard, SoundToggle
   layouts/                BaseLayout, TripLayout
-  lib/                    motion.ts (capability-gated GSAP), trips.ts
+  lib/                    motion.ts (GSAP), audio.ts, gallery.ts, trips.ts
   i18n/ui.ts              UI chrome strings (en/sl)
   pages/[lang]/           index + [slug] routes
   styles/                 tokens.css, global.css
+scripts/                  archive-backup.sh, publish-media.sh
+docs/AUTHORING.md         how to prepare + publish a trip's media
 ```
 
 ## Adding a trip
 
+See **[docs/AUTHORING.md](docs/AUTHORING.md)** for the full workflow. In short:
+
 1. Create `src/content/trips/<key>.en.mdx` (and `.sl.mdx`) — copy `iceland.en.mdx` as a template.
-2. Set frontmatter: `title, summary, date, lang, slug, key, location{name,lat,lng}, heroImage`.
-   - `key` is shared across languages (links the language switcher); `slug` is the localized URL.
-3. Drop photos in `src/content/trips/_media/<key>/` (Git LFS picks them up via `.gitattributes`).
-4. Compose the article from scene components. Add `data-place/data-coord/data-meta` via each
-   scene's `place`/`coord`/`meta` props to feed the expedition HUD.
+   Set `draft: true` to keep it out of production while you work.
+2. **Photos** → `src/content/trips/_media/<key>/` (committed); import them in the MDX so Astro
+   generates AVIF/WebP + `srcset`. Image props also accept a plain URL.
+3. **Videos / audio** → preprocess, then `scripts/publish-media.sh` uploads them to the serving
+   bucket's `media/` prefix; reference by `https://travels.zlat.co/media/<key>/…`.
+4. Compose the article from scene components; set `place`/`coord`/`meta` per scene for the HUD.
 
 ### Responsive behavior
 
@@ -66,11 +69,14 @@ src/
 Only `transform`/`opacity` are animated. Full-bleed scenes use `svh`/`dvh` so the mobile URL bar
 doesn't crop them.
 
-### Video
+### Media hosting
 
-Video components (`Hero`, `ScrubVideo`) are host-agnostic — they take a `src` URL + `poster`.
-Host (S3/CloudFront vs Mux/Cloudflare Stream) is TBD; until then use `panImage` (a wide photo) or a
-local placeholder.
+- **Photos** are committed to the repo (`_media/`) and optimized by Astro at build (no Git LFS).
+- **Videos & audio** live on the serving bucket's `media/` prefix (served by the same CloudFront),
+  published with `scripts/publish-media.sh`. The site deploy excludes `media/*`, so it never wipes
+  them. Image/video props are host-agnostic — local import or URL.
+- **Originals + web-ready masters** are backed up to a private archive bucket via
+  `scripts/archive-backup.sh`. See [docs/AUTHORING.md](docs/AUTHORING.md).
 
 ## Deployment (AWS)
 
