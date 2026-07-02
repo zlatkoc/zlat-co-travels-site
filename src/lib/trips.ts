@@ -3,20 +3,26 @@ import type { Locale } from '../i18n/ui';
 
 export type Trip = CollectionEntry<'trips'>;
 
-const isPublished = (t: Trip) => import.meta.env.DEV || !t.data.draft;
+export const isPublished = (e: { data: { draft: boolean } }) =>
+  import.meta.env.DEV || !e.data.draft;
 
-/** All published trips for a language, newest first (ties broken by `order`). */
+/** All published standalone trips for a language, newest first (ties broken by `order`).
+    Journey segments are excluded — they surface through their journey instead. */
 export async function getTripsByLocale(locale: Locale): Promise<Trip[]> {
-  const trips = await getCollection('trips', (t) => t.data.lang === locale && isPublished(t));
+  const trips = await getCollection(
+    'trips',
+    (t) => t.data.lang === locale && !t.data.journey && isPublished(t),
+  );
   return trips.sort((a, b) => {
     const byDate = b.data.date.getTime() - a.data.date.getTime();
     return byDate !== 0 ? byDate : b.data.order - a.data.order;
   });
 }
 
-/** Every (locale, slug) pair — used by getStaticPaths for the trip route. */
+/** Every (locale, slug) pair — used by getStaticPaths for the flat trip route.
+    Journey segments are excluded; they get nested URLs via lib/journeys.ts. */
 export async function getAllTripParams() {
-  const trips = await getCollection('trips', isPublished);
+  const trips = await getCollection('trips', (t) => !t.data.journey && isPublished(t));
   return trips.map((trip) => ({
     params: { lang: trip.data.lang, slug: trip.data.slug },
     props: { trip },

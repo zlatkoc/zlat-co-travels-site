@@ -1,0 +1,18 @@
+---
+import { render } from 'astro:content';
+import TripLayout from '../../../layouts/TripLayout.astro';
+import { getAllSegmentParams, getSegmentAlternates } from '../../../lib/journeys';
+
+export async function getStaticPaths() {
+  return await getAllSegmentParams();
+}
+
+const { trip, journey, prev, next, part, total } = Astro.props;
+const { Content } = await render(trip);
+
+const alternates = await getSegmentAlternates(trip);
+---
+
+<TripLayout trip={trip} alternates={alternates} journeyNav={{ journey, prev, next, part, total }}>
+  <Content />
+</TripLayout>

@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import JourneyCard from '../../components/JourneyCard.astro';
 import TripCard from '../../components/TripCard.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
-import { getTripsByLocale } from '../../lib/trips';
+import { getTripsByLocale, type Trip } from '../../lib/trips';
+import { getJourneysByLocale, getJourneySegments, type Journey } from '../../lib/journeys';
 import { locales, t, type Locale } from '../../i18n/ui';
 
 export function getStaticPaths() {
@@ -11,6 +13,31 @@ export function getStaticPaths() {
 
 const { lang } = Astro.props as { lang: Locale };
 const trips = await getTripsByLocale(lang);
+const journeys = await getJourneysByLocale(lang);
+
+// One merged reverse-chronological list: standalone trips and journeys side by side.
+type IndexItem =
+  | { kind: 'trip'; date: Date; order: number; trip: Trip }
+  | { kind: 'journey'; date: Date; order: number; journey: Journey; partsCount: number };
+
+const items: IndexItem[] = [
+  ...trips.map((trip) => ({
+    kind: 'trip' as const,
+    date: trip.data.date,
+    order: trip.data.order,
+    trip,
+  })),
+  ...(await Promise.all(
+    journeys.map(async (journey) => ({
+      kind: 'journey' as const,
+      date: journey.data.dateStart,
+      order: journey.data.order,
+      journey,
+      partsCount: (await getJourneySegments(journey)).length,
+    })),
+  )),
+].sort((a, b) => b.date.getTime() - a.date.getTime() || b.order - a.order);
+
 const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
 const year = new Date().getFullYear();
 ---
@@ -26,9 +53,13 @@ const year = new Date().getFullYear();
 
   <main class="index-main">
     <ul class="index-grid" role="list">
-      {trips.map((trip) => (
+      {items.map((item) => (
         <li>
-          <TripCard trip={trip} href={`/${lang}/${trip.data.slug}`} />
+          {item.kind === 'trip' ? (
+            <TripCard trip={item.trip} href={`/${lang}/${item.trip.data.slug}`} />
+          ) : (
+            <JourneyCard journey={item.journey} href={`/${lang}/${item.journey.data.slug}/`} partsCount={item.partsCount} />
+          )}
         </li>
       ))}
     </ul>

@@ -1,0 +1,107 @@
+---
+import { t, type Locale } from '../i18n/ui';
+import type { Journey } from '../lib/journeys';
+import type { Trip } from '../lib/trips';
+
+interface Props {
+  lang: Locale;
+  journey: Journey;
+  prev: Trip | null;
+  next: Trip | null;
+  part: number;
+  total: number;
+}
+const { lang, journey, prev, next, part, total } = Astro.props;
+
+const journeyHref = `/${lang}/${journey.data.slug}/`;
+const segmentHref = (trip: Trip) => `/${lang}/${journey.data.slug}/${trip.data.slug}`;
+const partLabel = t(lang, 'journey.part')
+  .replace('{n}', String(part))
+  .replace('{m}', String(total));
+---
+
+<nav class="journey-nav" aria-label={journey.data.title}>
+  <p class="journey-part">{partLabel}</p>
+  <div class="journey-links">
+    {prev ? (
+      <a class="journey-link prev" href={segmentHref(prev)}>
+        <span class="label">← {t(lang, 'journey.prev')}</span>
+        <span class="title">{prev.data.title}</span>
+      </a>
+    ) : (
+      <span class="journey-link spacer" aria-hidden="true"></span>
+    )}
+    <a class="journey-link back" href={journeyHref}>
+      <span class="label">{t(lang, 'journey.back')}</span>
+      <span class="title">{journey.data.title}</span>
+    </a>
+    {next ? (
+      <a class="journey-link next" href={segmentHref(next)}>
+        <span class="label">{t(lang, 'journey.next')} →</span>
+        <span class="title">{next.data.title}</span>
+      </a>
+    ) : (
+      <span class="journey-link spacer" aria-hidden="true"></span>
+    )}
+  </div>
+</nav>
+
+<style>
+  .journey-nav {
+    margin: 0 0 2.4rem;
+  }
+  .journey-part {
+    margin: 0 0 1.4rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .journey-links {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.2rem;
+    align-items: start;
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+  .journey-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+  }
+  .journey-link.prev {
+    text-align: left;
+  }
+  .journey-link.back {
+    text-align: center;
+  }
+  .journey-link.next {
+    text-align: right;
+  }
+  .journey-link .label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .journey-link .title {
+    font-style: italic;
+    opacity: 0.75;
+  }
+  @media (max-width: 40rem) {
+    .journey-links {
+      grid-template-columns: 1fr;
+    }
+    .journey-link.prev,
+    .journey-link.next,
+    .journey-link.back {
+      text-align: center;
+    }
+    .spacer {
+      display: none;
+    }
+  }
+</style>

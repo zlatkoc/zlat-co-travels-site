@@ -77,6 +77,52 @@ export const M = {
 <ScrubVideo video={M.coast} poster="…" />
 ```
 
+## 1b. Journeys (multi-part trips)
+
+A journey groups several trip segments under one landing page (e.g. Bavaria = Munich + Königssee).
+The index shows a single journey card; segments live at nested URLs with part navigation.
+
+**Naming: journey keys/slugs include the year and month** — `bavaria-2026-06`, not `bavaria` — so
+the same region can host several journeys later. Segment keys are `<journey-key>-<leaf>`
+(`bavaria-2026-06-munich`); the segment `slug` is just the leaf (`munich`), because the URL already
+carries the journey: `/en/bavaria-2026-06/munich`.
+
+Create the journey entry (one per language, like trips):
+
+```
+src/content/journeys/<journey-key>.en.mdx     # frontmatter = metadata, body = landing intro
+```
+
+```yaml
+title: Bavaria
+summary: One-line teaser for the index + meta description.
+dateStart: 2026-06-24
+dateEnd: 2026-06-28
+lang: en
+slug: bavaria-2026-06     # localized URL segment (/en/bavaria-2026-06/)
+key: bavaria-2026-06      # shared across languages; trips reference this
+heroImage: ./_media/bavaria-2026-06/hero.jpg   # journey hero photos live in journeys/_media/
+heroAlt: …
+theme: { accent: "#3a6b35" }
+draft: true
+```
+
+Then mark each segment trip as part of it in its frontmatter:
+
+```yaml
+journey:
+  key: bavaria-2026-06   # must match a journeys entry in the same language
+  part: 1                # 1-based reading order
+```
+
+Segments with a `journey` key disappear from the index and the flat `/en/<slug>` route — they only
+exist under the journey. `part` (not `order`) controls their sequence; the journey's `dateStart`
+places the journey card on the index. Media dirs follow the segment keys:
+`_media/bavaria-2026-06-munich/`, `media-store/{masters,web}/bavaria-2026-06-munich/`.
+
+A journey published in one language only is fine — the language switcher simply hides itself.
+A segment referencing a journey key with no matching entry in its language fails the build loudly.
+
 ## 2. Photos
 
 **Prep (you do this once per photo):**

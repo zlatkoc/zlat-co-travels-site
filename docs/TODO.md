@@ -19,22 +19,14 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
 
 ## Content & structure
 
-- [ ] **Multi-part trips / journeys** (e.g. "Sicily, June 2026" = several segments). Core idea: a shared
-      `journey` key + `order` on each segment's frontmatter; the index clusters segments under a heading,
-      optionally a journey landing page. Each segment stays its own MDX. Design decisions to settle:
-  - **Where journey metadata lives** — a dedicated `journeys` content collection (title, description,
-    dates, hero, cover) referenced by key, vs. inferring the journey purely from the shared key on each
-    trip. A collection is cleaner once a journey needs its own copy/hero and avoids repeating it on every
-    segment.
-  - **URL structure** — flat (`/en/sicily-catania`) vs. nested (`/en/sicily/catania`) with the journey as
-    a path segment. Nested reads better and gives the landing page a natural `/en/sicily/` home, but
-    touches routing and the existing slug scheme.
-  - **Intra-journey navigation** — prev/next *within* a journey (segment N of M), plus a link back to the
-    journey page. This is what finally uses the unused `footer.next` i18n string (see "Other ideas").
-  - **Index presentation** — a journey shows as one clustered card/group rather than N loose trips;
-    decide ordering (journey by date, segments by `order`) and how standalone one-off trips still fit.
-  - **Cross-cutting** — how journeys interact with i18n (a journey may not exist in every language),
-    the map (segments plotted together / a journey route line), RSS, and taxonomy (`journey` as a facet).
+- [x] **Multi-part trips / journeys** — built (see `docs/AUTHORING.md` § Journeys). Decisions taken:
+      dedicated `journeys` collection (MDX, body = landing intro); nested URLs
+      (`/en/bavaria-2026-06/munich`) via `[lang]/[journey]/` routes; segments marked with
+      `journey: { key, part }` frontmatter and excluded from the index/flat routes; JourneyNav
+      (part N of M, prev/next, back) on segment pages; JourneyCard clusters the journey on the index.
+      Journey keys/slugs are dated (`<region>-YYYY-MM`) so regions can repeat. Still open
+      (cross-cutting, when those features land): map route lines, RSS, taxonomy facet.
+  - [ ] Slovenian versions of the Bavaria journey (`bavaria-2026-06.sl.mdx` + segment `.sl.mdx` files).
 - [ ] Verify `audio: { mode: track }` end-to-end with a real looping mp3 (implemented, never demoed).
 - [ ] Confirm `archive-backup.sh` against a populated master store (only dry-run so far).
 - [ ] **Site name / description / contact copy.** Current text is placeholder — write proper wording for

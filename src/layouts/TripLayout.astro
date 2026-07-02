@@ -1,9 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ExpeditionHUD from '../components/ExpeditionHUD.astro';
+import JourneyNav from '../components/JourneyNav.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import SoundToggle from '../components/SoundToggle.astro';
 import { t, type Locale } from '../i18n/ui';
+import type { Journey } from '../lib/journeys';
 import type { Trip } from '../lib/trips';
 
 interface Alt {
@@ -13,8 +15,17 @@ interface Alt {
 interface Props {
   trip: Trip;
   alternates: Alt[];
+  /** Present when the trip is a segment of a journey: adds part navigation
+      and points the back links at the journey instead of the index. */
+  journeyNav?: {
+    journey: Journey;
+    prev: Trip | null;
+    next: Trip | null;
+    part: number;
+    total: number;
+  };
 }
-const { trip, alternates } = Astro.props;
+const { trip, alternates, journeyNav } = Astro.props;
 const { title, summary, lang, theme } = trip.data;
 
 const audioMode = trip.data.audio.mode;
@@ -27,11 +38,13 @@ const themeVars = {
 };
 
 const indexHref = `/${lang}/`;
+const backHref = journeyNav ? `/${lang}/${journeyNav.journey.data.slug}/` : indexHref;
+const backLabel = journeyNav ? journeyNav.journey.data.title : t(lang, 'trip.back');
 const year = new Date().getFullYear();
 ---
 
 <BaseLayout title={`${title} — ${t(lang, 'site.title')}`} description={summary} lang={lang} alternates={alternates} themeVars={themeVars}>
-  <a class="skip-back" href={indexHref}>← {t(lang, 'trip.back')}</a>
+  <a class="skip-back" href={backHref}>← {backLabel}</a>
 
   <LanguageSwitcher current={lang} alternates={alternates} />
   <ExpeditionHUD />
@@ -45,6 +58,16 @@ const year = new Date().getFullYear();
   </main>
 
   <footer class="trip-footer">
+    {journeyNav && (
+      <JourneyNav
+        lang={lang}
+        journey={journeyNav.journey}
+        prev={journeyNav.prev}
+        next={journeyNav.next}
+        part={journeyNav.part}
+        total={journeyNav.total}
+      />
+    )}
     <a href={indexHref}>{t(lang, 'trip.back')}</a>
     <p class="copyright">© {year} Zlatko Čajić</p>
   </footer>
