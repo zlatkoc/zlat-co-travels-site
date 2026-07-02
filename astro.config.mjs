@@ -27,6 +27,9 @@ export default defineConfig({
   image: {
     // Build-time optimization: emit AVIF/WebP + responsive srcset from in-repo (Git LFS) photos.
     responsiveStyles: true,
+    // Sharp + keepIccProfile: derivatives keep their Display P3 tag (iPhone photos)
+    // instead of being silently flattened to assumed-sRGB.
+    service: { entrypoint: './src/lib/image-service.ts' },
   },
 
   build: {
