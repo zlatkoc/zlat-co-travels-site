@@ -9,7 +9,8 @@ interface Props {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  /** External video URL (host TBD). If set, plays muted/looping behind the title. */
+  /** External video URL. If set, plays muted/looping behind the title. Joins the
+      per-video sound system (lib/audio.ts), so the Sound toggle can unmute it. */
   video?: string;
   poster?: string;
   /** HUD anchor for the opening chapter. */
@@ -30,6 +31,7 @@ const { image, alt = '', eyebrow, title, subtitle, video, poster, place, coord, 
   <div class="hero-media" data-hero-media>
     {video ? (
       <video
+        data-autoplay-video
         autoplay
         muted
         loop
