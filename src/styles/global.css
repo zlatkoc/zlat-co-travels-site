@@ -48,6 +48,8 @@ h3 {
   line-height: 1.05;
   letter-spacing: -0.01em;
   margin: 0;
+  /* Fraunces SOFT axis: rounds corners/terminals of the letterforms. */
+  font-variation-settings: 'SOFT' 100;
 }
 
 /* Shared layout helper: a centered reading column. */

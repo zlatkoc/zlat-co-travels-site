@@ -73,12 +73,18 @@ const { video, poster, scrub = false, panImage, alt = '', caption, place, coord,
   .scrub-caption {
     position: relative;
     z-index: 2;
-    margin: 0 0 calc(1.4rem + env(safe-area-inset-bottom, 0));
-    color: #fff;
+    /* Clear the expedition HUD pinned bottom-left. */
+    margin: 0 0 calc(6rem + env(safe-area-inset-bottom, 0));
+    padding: 0.45rem 0.9rem;
+    color: var(--hud-ink);
+    background: var(--hud-bg);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
     font-family: var(--font-mono);
     font-size: var(--step--1);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+    max-width: min(90%, 46rem);
+    text-align: center;
   }
 </style>
