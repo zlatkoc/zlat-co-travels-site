@@ -41,6 +41,8 @@ import burgerKing from './_media/bavaria-2026-06-koenigssee/burger-king.jpg';
 export const CDN = 'https://travels.zlat.co/media/bavaria-2026-06-koenigssee';
 export const M = {
   hero,
+  heroVideo: `${CDN}/hero.mp4`,
+  heroPoster: `${CDN}/hero.poster.jpg`,
   signpost,
   obersee,
   buttermilch,
@@ -59,15 +61,21 @@ export const M = {
   rossfeldPoster: `${CDN}/rossfeld.poster.jpg`,
 };
 
+{/* Scenes follow the order the day unfolded (and the media was shot):
+    boat out → trumpet → Salet walk → Obersee → drinks → St. Bartholomä →
+    smokehouse → trout → boat back → Rossfeld → home. */}
+
 <Hero
   image={M.hero}
+  video={M.heroVideo}
+  poster={M.heroPoster}
   alt="Morning light on the cliffs of Königssee, seen from the water"
   eyebrow="Bavaria — Part 2 of 2"
   title="Königssee"
   subtitle="First boat out, before the heat and the crowds."
   place="Königssee"
   coord="47.555° N, 12.972° E"
-  meta="June 28 — before six"
+  meta="June 28 — 08:15, first boat"
 />
 
 <ReadingBlock dropcap place="Schönau am Königssee" coord="47.593° N, 12.987° E" meta="The early start">
@@ -92,19 +100,6 @@ bars out of the open window — then silence, and the cliffs played them back. T
 times, each echo softer, as if the mountain was learning the tune.
 </ReadingBlock>
 
-<PullQuote
-  image={M.obersee}
-  alt="The Obersee perfectly mirroring the mountains, framed by leaves"
-  cite="Obersee"
-  place="Obersee"
-  coord="47.532° N, 13.002° E"
-  meta="The upper lake"
->
-From Salet it's a short walk to the Obersee. On the far side of the upper lake there was
-Buttermilch, an Almdudler, and a dip into water that erased the entire heatwave in about four
-seconds.
-</PullQuote>
-
 <StickyPhoto
   steps={[
     {
@@ -117,34 +112,37 @@ seconds.
       meta: 'To the upper lake',
     },
     {
+      image: M.obersee,
+      alt: 'The Obersee perfectly mirroring the mountains, framed by leaves',
+      title: 'Obersee',
+      text: 'Then the upper lake, holding the mountains upside down without a ripple. Somewhere along its far shore I slipped into water that erased the entire heatwave in about four seconds.',
+      place: 'Obersee',
+      coord: '47.532° N, 13.002° E',
+      meta: 'The mirror — and the dip',
+    },
+    {
       image: M.buttermilch,
       alt: 'A glass of buttermilk and a glass of Almdudler on a wooden table by the lake',
       title: 'Alm refreshments',
-      text: 'At the Fischunkelalm on the far shore: a glass of cold Buttermilch, an Almdudler, and the kind of view that makes both taste like a reward.',
+      text: 'At the Fischunkelalm on the far side: a glass of cold Buttermilch, an Almdudler, and the kind of view that makes both taste like a reward.',
       place: 'Fischunkelalm',
       coord: '47.529° N, 13.012° E',
       meta: 'Buttermilch & Almdudler',
     },
-    {
-      image: M.stBartholomae,
-      alt: 'The red onion domes of St. Bartholomä church against forested mountains',
-      title: 'St. Bartholomä',
-      text: 'Back at the red domes of St. Bartholomä I found the shade of the big trees and slept for an hour — the way you only sleep outdoors in summer.',
-      place: 'St. Bartholomä',
-      coord: '47.553° N, 12.966° E',
-      meta: 'The nap',
-    },
-    {
-      image: M.trout,
-      alt: 'A whole smoked trout on paper with dark bread, butter and horseradish cream',
-      title: 'Smoked trout',
-      text: 'Then lunch: lake trout, smoked a few metres from the water it came out of, with dark bread and a small beer that had earned its place.',
-      place: 'St. Bartholomä',
-      coord: '47.553° N, 12.966° E',
-      meta: 'The trout',
-    },
   ]}
 />
+
+<PullQuote
+  image={M.stBartholomae}
+  alt="The red onion domes of St. Bartholomä church against forested mountains"
+  cite="St. Bartholomä"
+  place="St. Bartholomä"
+  coord="47.553° N, 12.966° E"
+  meta="The nap"
+>
+Back at the red domes of St. Bartholomä I found the shade of the big trees and slept for an hour —
+the way you only sleep outdoors in summer.
+</PullQuote>
 
 <ScrubVideo
   video={M.smokehouse}
@@ -155,6 +153,11 @@ seconds.
   coord="47.553° N, 12.966° E"
   meta="Where lunch comes from"
 />
+
+<ReadingBlock place="St. Bartholomä" coord="47.553° N, 12.966° E" meta="The trout">
+Then lunch: lake trout, smoked a few metres from the water it came out of, with dark bread,
+horseradish cream and a small beer that had earned its place.
+</ReadingBlock>
 
 <ScrubVideo
   video={M.boat}
@@ -189,6 +192,7 @@ Spielberg, run that same afternoon. Home around ten.
   meta="Part 2 — the lake"
   items={[
     { image: M.fischunkelalm, alt: 'Umbrellas and benches of the Fischunkelalm terrace above the Obersee', caption: 'Fischunkelalm, table with a view', wide: true },
+    { image: M.trout, alt: 'A whole smoked trout on paper with dark bread, butter and horseradish cream', caption: 'The trout, moments before' },
     { image: M.badeshorts, alt: 'Swim shorts styled like lederhosen hanging in a souvenir shop', caption: 'Lederhosen, swimwear edition' },
     { image: M.burgerKing, alt: 'Formula 1 fans in orange shirts filling a Burger King', caption: 'Liezen, full of the Orange Army' },
   ]}
