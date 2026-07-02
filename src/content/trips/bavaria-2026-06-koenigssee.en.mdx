@@ -26,13 +26,11 @@ import ReadingBlock from '../../components/scenes/ReadingBlock.astro';
 import StickyPhoto from '../../components/scenes/StickyPhoto.astro';
 import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
 import PullQuote from '../../components/scenes/PullQuote.astro';
-import Gallery from '../../components/scenes/Gallery.astro';
 
 import hero from './_media/bavaria-2026-06-koenigssee/hero.jpg';
 import signpost from './_media/bavaria-2026-06-koenigssee/signpost.jpg';
 import obersee from './_media/bavaria-2026-06-koenigssee/obersee.jpg';
 import buttermilch from './_media/bavaria-2026-06-koenigssee/buttermilch.jpg';
-import fischunkelalm from './_media/bavaria-2026-06-koenigssee/fischunkelalm.jpg';
 import stBartholomae from './_media/bavaria-2026-06-koenigssee/st-bartholomae.jpg';
 import trout from './_media/bavaria-2026-06-koenigssee/trout.jpg';
 import badeshorts from './_media/bavaria-2026-06-koenigssee/badeshorts.jpg';
@@ -46,7 +44,6 @@ export const M = {
   signpost,
   obersee,
   buttermilch,
-  fischunkelalm,
   stBartholomae,
   trout,
   badeshorts,
@@ -204,10 +201,19 @@ the way you only sleep outdoors in summer.
   meta="Where lunch comes from"
 />
 
-<ReadingBlock place="St. Bartholomä" coord="47.553° N, 12.966° E" meta="The trout">
-Then lunch: lake trout, smoked a few metres from the water it came out of, with dark bread,
-horseradish cream and a small beer that had earned its place.
-</ReadingBlock>
+<StickyPhoto
+  steps={[
+    {
+      image: M.trout,
+      alt: 'A whole smoked trout on paper with dark bread, butter and horseradish cream',
+      title: 'Smoked trout',
+      text: 'Then lunch: lake trout, smoked a few metres from the water it came out of, with dark bread, horseradish cream and a small beer that had earned its place.',
+      place: 'St. Bartholomä',
+      coord: '47.553° N, 12.966° E',
+      meta: 'The trout',
+    },
+  ]}
+/>
 
 <ScrubVideo
   video={M.boat}
@@ -219,11 +225,23 @@ horseradish cream and a small beer that had earned its place.
   meta="The boat back"
 />
 
+<StickyPhoto
+  steps={[
+    {
+      image: M.badeshorts,
+      alt: 'Swim shorts styled like lederhosen hanging in a souvenir shop',
+      title: 'Lederhosen, swimwear edition',
+      text: 'Back at Schönau, the souvenir economy had read the weather report: swim shorts cut like lederhosen, one heatwave away from becoming traditional dress.',
+      place: 'Schönau am Königssee',
+      coord: '47.593° N, 12.987° E',
+      meta: 'Shore leave',
+    },
+  ]}
+/>
+
 <ReadingBlock place="Rossfeld Panoramastraße" coord="47.626° N, 13.070° E" meta="The high road">
 Back at the car I took the long way out — the Rossfeld Panoramastraße, a loop of road laid along
-the ridge with half of Bavaria on one side and Austria on the other. Then the motorway, and a
-Burger King in Liezen packed with Formula 1 fans streaming home from the Austrian Grand Prix at
-Spielberg, run that same afternoon. Home around ten.
+the ridge with half of Bavaria on one side and Austria on the other.
 </ReadingBlock>
 
 <ScrubVideo
@@ -246,14 +264,16 @@ Spielberg, run that same afternoon. Home around ten.
   meta="The scenic detour"
 />
 
-<Gallery
-  place="Königssee"
-  coord="47.555° N, 12.972° E"
-  meta="Part 2 — the lake"
-  items={[
-    { image: M.fischunkelalm, alt: 'Umbrellas and benches of the Fischunkelalm terrace above the Obersee', caption: 'Fischunkelalm, table with a view', wide: true },
-    { image: M.trout, alt: 'A whole smoked trout on paper with dark bread, butter and horseradish cream', caption: 'The trout, moments before' },
-    { image: M.badeshorts, alt: 'Swim shorts styled like lederhosen hanging in a souvenir shop', caption: 'Lederhosen, swimwear edition' },
-    { image: M.burgerKing, alt: 'Formula 1 fans in orange shirts filling a Burger King', caption: 'Liezen, full of the Orange Army' },
+<StickyPhoto
+  steps={[
+    {
+      image: M.burgerKing,
+      alt: 'Formula 1 fans in orange shirts filling a Burger King',
+      title: 'Liezen, full of the Orange Army',
+      text: 'Then the motorway, and a Burger King in Liezen packed with Formula 1 fans streaming home from the Austrian Grand Prix at Spielberg, run that same afternoon. Home around ten.',
+      place: 'Liezen, Austria',
+      coord: '47.567° N, 14.240° E',
+      meta: 'The road home',
+    },
   ]}
 />
