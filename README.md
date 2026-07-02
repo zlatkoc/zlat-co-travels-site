@@ -48,6 +48,7 @@ src/
   styles/                 tokens.css, global.css
 scripts/                  archive-backup.sh, publish-media.sh
 docs/AUTHORING.md         how to prepare + publish a trip's media
+docs/VISUAL-LANGUAGE.md   the scene vocabulary + rules of rhythm for trip pages
 docs/TODO.md              outstanding work + ideas
 ```
 
