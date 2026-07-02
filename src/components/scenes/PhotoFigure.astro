@@ -41,7 +41,7 @@ const fullUrl =
         <Image src={image} alt={alt || (caption ?? '')} widths={[768, 1280, 1920]} sizes="min(92vw, 58rem)" loading="lazy" />
       )}
     </button>
-    {caption && <figcaption>{caption}</figcaption>}
+    {caption && <figcaption class="measure">{caption}</figcaption>}
   </figure>
 </section>
 
@@ -73,15 +73,11 @@ const fullUrl =
     border-radius: 3px;
     box-shadow: 0 1px 0 var(--line);
   }
-  /* Caption reads as normal narrative prose (same measure and voice as
-     ReadingBlock), so the photo sits inside the story rather than beside it. */
+  /* Caption reads as normal narrative prose — the global .measure class gives it
+     the exact ReadingBlock column (width, gutters, centering). */
   figcaption {
     margin-top: 1.8rem;
-    margin-inline: auto;
-    max-width: var(--measure);
     text-align: left;
-    font-size: var(--step-0);
-    color: var(--ink);
   }
   .figure-open:focus-visible {
     outline: 2px solid var(--accent);
