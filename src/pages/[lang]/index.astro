@@ -6,6 +6,7 @@ import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import { getTripsByLocale, type Trip } from '../../lib/trips';
 import { getJourneysByLocale, getJourneySegments, type Journey } from '../../lib/journeys';
 import { locales, t, type Locale } from '../../i18n/ui';
+import { withBase } from '../../lib/paths';
 
 export function getStaticPaths() {
   return locales.map((lang) => ({ params: { lang }, props: { lang } }));
@@ -38,7 +39,7 @@ const items: IndexItem[] = [
   )),
 ].sort((a, b) => b.date.getTime() - a.date.getTime() || b.order - a.order);
 
-const alternates = locales.map((l) => ({ lang: l, href: `/${l}/` }));
+const alternates = locales.map((l) => ({ lang: l, href: withBase(`/${l}/`) }));
 const year = new Date().getFullYear();
 ---
 
@@ -56,9 +57,9 @@ const year = new Date().getFullYear();
       {items.map((item) => (
         <li>
           {item.kind === 'trip' ? (
-            <TripCard trip={item.trip} href={`/${lang}/${item.trip.data.slug}`} />
+            <TripCard trip={item.trip} href={withBase(`/${lang}/${item.trip.data.slug}`)} />
           ) : (
-            <JourneyCard journey={item.journey} href={`/${lang}/${item.journey.data.slug}/`} partsCount={item.partsCount} />
+            <JourneyCard journey={item.journey} href={withBase(`/${lang}/${item.journey.data.slug}/`)} partsCount={item.partsCount} />
           )}
         </li>
       ))}

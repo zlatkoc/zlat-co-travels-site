@@ -43,10 +43,10 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
       ~2 GB in the archive bucket).
 - [ ] **Site name / description / contact copy.** Current text is placeholder — write proper wording for
       the site title, meta description, and a contact line/link. Feeds the OG/SEO items above too.
-- [ ] **Preview work-in-progress pages.** A way to see draft trips on the (deployed) site without
-      publishing them to everyone. Options: a `draft: true` frontmatter flag that hides a trip from the
-      index and sitemap but keeps its page reachable at an unguessable/gated URL; a separate preview
-      deploy/subdomain; or gate drafts behind the friends login (see below). Decide the mechanism.
+- [x] **Preview work-in-progress pages** — built: `scripts/publish-preview.sh` publishes the whole
+      site (drafts included) under `https://travels.zlat.co/preview-$PREVIEW_TOKEN/`, noindexed,
+      sitemap-less, internal links base-prefixed via `src/lib/paths.ts`. Token lives in `.envrc`
+      (rotate to kill shared links); production deploys exclude `preview-*`.
 - [ ] **Trip taxonomy + filtering.** Add structured facets to frontmatter — `tags`, `country`, `year`
       (or derive year from the trip date) — and surface them: a filterable index and/or an
       archive-by-year view, with tag/country landing pages. One flat list stops scaling once real trips

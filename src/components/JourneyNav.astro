@@ -2,6 +2,7 @@
 import { t, type Locale } from '../i18n/ui';
 import type { Journey } from '../lib/journeys';
 import type { Trip } from '../lib/trips';
+import { withBase } from '../lib/paths';
 
 interface Props {
   lang: Locale;
@@ -13,8 +14,8 @@ interface Props {
 }
 const { lang, journey, prev, next, part, total } = Astro.props;
 
-const journeyHref = `/${lang}/${journey.data.slug}/`;
-const segmentHref = (trip: Trip) => `/${lang}/${journey.data.slug}/${trip.data.slug}`;
+const journeyHref = withBase(`/${lang}/${journey.data.slug}/`);
+const segmentHref = (trip: Trip) => withBase(`/${lang}/${journey.data.slug}/${trip.data.slug}`);
 const partLabel = t(lang, 'journey.part')
   .replace('{n}', String(part))
   .replace('{m}', String(total));

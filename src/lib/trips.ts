@@ -3,8 +3,10 @@ import type { Locale } from '../i18n/ui';
 
 export type Trip = CollectionEntry<'trips'>;
 
+/** Drafts show in dev and in preview builds (PUBLIC_PREVIEW=1, see
+    scripts/publish-preview.sh); production builds exclude them. */
 export const isPublished = (e: { data: { draft: boolean } }) =>
-  import.meta.env.DEV || !e.data.draft;
+  import.meta.env.DEV || import.meta.env.PUBLIC_PREVIEW === '1' || !e.data.draft;
 
 /** All published standalone trips for a language, newest first (ties broken by `order`).
     Journey segments are excluded — they surface through their journey instead. */

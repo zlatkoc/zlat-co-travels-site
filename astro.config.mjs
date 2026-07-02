@@ -2,9 +2,15 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
+// Preview builds (scripts/publish-preview.sh): drafts included, whole site under
+// an unguessable /preview-<token>/ base, noindexed, no sitemap.
+const preview = process.env.PUBLIC_PREVIEW === '1';
+const previewToken = process.env.PREVIEW_TOKEN ?? '';
+
 // Deploy target: https://travels.zlat.co (static, S3 + CloudFront).
 export default defineConfig({
   site: 'https://travels.zlat.co',
+  base: preview ? `/preview-${previewToken}` : '/',
   output: 'static',
 
   // English + Slovenian, path-based routing (/en/..., /sl/...).
@@ -22,7 +28,7 @@ export default defineConfig({
     '/': '/en/',
   },
 
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), ...(preview ? [] : [sitemap()])],
 
   image: {
     // Build-time optimization: emit AVIF/WebP + responsive srcset from in-repo (Git LFS) photos.

@@ -22,3 +22,8 @@ export MEDIA_MASTERS_DIR="$PWD/media-store"
 export S3_ARCHIVE_BUCKET="travels-zlat-co-archive"
 # Optional: web-ready videos/audio dir to publish (defaults to $MEDIA_MASTERS_DIR/web).
 # export MEDIA_PUBLISH_DIR="$MEDIA_MASTERS_DIR/web"
+
+# Draft preview publishing (scripts/publish-preview.sh): drafts become viewable at
+# https://travels.zlat.co/preview-<token>/en/ — unguessable, noindexed, not linked.
+# Generate with: openssl rand -hex 6. Rotate to invalidate previously shared links.
+export PREVIEW_TOKEN="change-me"

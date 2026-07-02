@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/ui';
 import { isPublished, type Trip } from './trips';
+import { withBase } from './paths';
 
 export type Journey = CollectionEntry<'journeys'>;
 
@@ -123,7 +124,7 @@ export async function getSegmentAlternates(
     if (!journey) continue;
     alternates.push({
       lang: t.data.lang,
-      href: `/${t.data.lang}/${journey.data.slug}/${t.data.slug}/`,
+      href: withBase(`/${t.data.lang}/${journey.data.slug}/${t.data.slug}/`),
     });
   }
   return alternates;

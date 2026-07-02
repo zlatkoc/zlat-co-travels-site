@@ -7,6 +7,7 @@ import SoundToggle from '../components/SoundToggle.astro';
 import { t, type Locale } from '../i18n/ui';
 import type { Journey } from '../lib/journeys';
 import type { Trip } from '../lib/trips';
+import { withBase } from '../lib/paths';
 
 interface Alt {
   lang: Locale;
@@ -37,8 +38,8 @@ const themeVars = {
   '--ink': theme.ink,
 };
 
-const indexHref = `/${lang}/`;
-const backHref = journeyNav ? `/${lang}/${journeyNav.journey.data.slug}/` : indexHref;
+const indexHref = withBase(`/${lang}/`);
+const backHref = journeyNav ? withBase(`/${lang}/${journeyNav.journey.data.slug}/`) : indexHref;
 const backLabel = journeyNav ? journeyNav.journey.data.title : t(lang, 'trip.back');
 const year = new Date().getFullYear();
 ---

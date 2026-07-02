@@ -6,6 +6,7 @@ import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
 import TripCard from '../../../components/TripCard.astro';
 import { getAllJourneyParams, getJourneySegments, getJourneyTranslations } from '../../../lib/journeys';
 import { t, type Locale } from '../../../i18n/ui';
+import { withBase } from '../../../lib/paths';
 
 export async function getStaticPaths() {
   return await getAllJourneyParams();
@@ -21,7 +22,7 @@ const segments = await getJourneySegments(journey);
 const translations = await getJourneyTranslations(journey);
 const alternates = translations.map((j) => ({
   lang: j.data.lang as Locale,
-  href: `/${j.data.lang}/${j.data.slug}/`,
+  href: withBase(`/${j.data.lang}/${j.data.slug}/`),
 }));
 
 const themeVars = {
@@ -40,7 +41,7 @@ const dateRange = fmt.formatRange(dateStart, dateEnd);
 const partLabel = (n: number) =>
   t(lang, 'journey.part').replace('{n}', String(n)).replace('{m}', String(segments.length));
 
-const indexHref = `/${lang}/`;
+const indexHref = withBase(`/${lang}/`);
 const year = new Date().getFullYear();
 ---
 
@@ -69,7 +70,7 @@ const year = new Date().getFullYear();
     <ol class="journey-parts" role="list">
       {segments.map((trip, i) => (
         <li>
-          <TripCard trip={trip} href={`/${lang}/${journey.data.slug}/${trip.data.slug}`} eyebrow={partLabel(i + 1)} />
+          <TripCard trip={trip} href={withBase(`/${lang}/${journey.data.slug}/${trip.data.slug}`)} eyebrow={partLabel(i + 1)} />
         </li>
       ))}
     </ol>

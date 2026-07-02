@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import TripLayout from '../../layouts/TripLayout.astro';
 import { getAllTripParams, getTripTranslations } from '../../lib/trips';
 import type { Locale } from '../../i18n/ui';
+import { withBase } from '../../lib/paths';
 
 export async function getStaticPaths() {
   return await getAllTripParams();
@@ -15,7 +16,7 @@ const { Content } = await render(trip);
 const translations = await getTripTranslations(trip);
 const alternates = translations.map((t) => ({
   lang: t.data.lang as Locale,
-  href: `/${t.data.lang}/${t.data.slug}`,
+  href: withBase(`/${t.data.lang}/${t.data.slug}`),
 }));
 ---
 
