@@ -3,6 +3,12 @@
   "manifest": {
     "schema-version": "1.13.0",
     "install": {
+      "exiftool": {
+        "pkg-path": "exiftool"
+      },
+      "ffmpeg": {
+        "pkg-path": "ffmpeg"
+      },
       "git-lfs": {
         "pkg-path": "git-lfs"
       },
@@ -16,19 +22,284 @@
   },
   "packages": [
     {
+      "attr_path": "exiftool",
+      "broken": false,
+      "derivation": "/nix/store/cyfhql2ir8b47sbwpyg37a0dnqkb8nd5-perl5.42.0-Image-ExifTool-13.59.drv",
+      "description": "Tool to read, write and edit EXIF meta information",
+      "install_id": "exiftool",
+      "license": "[ GPL-1.0-or-later, Artistic-2.0 ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "perl5.42.0-Image-ExifTool-13.59",
+      "pname": "exiftool",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:12:47.956944Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "13.59",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/hjl3dvb25j44xmvrhqpm0bgi824kylkh-perl5.42.0-Image-ExifTool-13.59-devdoc",
+        "out": "/nix/store/r9sarkf0fnl4g9ah7ryja5qp7l74qc6g-perl5.42.0-Image-ExifTool-13.59"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "exiftool",
+      "broken": false,
+      "derivation": "/nix/store/rx2ygj4fm3s1v2dxfmfdnppbz883j0pc-perl5.42.0-Image-ExifTool-13.59.drv",
+      "description": "Tool to read, write and edit EXIF meta information",
+      "install_id": "exiftool",
+      "license": "[ GPL-1.0-or-later, Artistic-2.0 ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "perl5.42.0-Image-ExifTool-13.59",
+      "pname": "exiftool",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:41:21.838776Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "13.59",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/bfimh8d5q75m1xk47107z44115hmcgmy-perl5.42.0-Image-ExifTool-13.59-devdoc",
+        "out": "/nix/store/1bs4pid159kj6lfcqig34fj85r43j53l-perl5.42.0-Image-ExifTool-13.59"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "exiftool",
+      "broken": false,
+      "derivation": "/nix/store/3mdx2a9jwf61ljz99vvqblcmbhs84bdy-perl5.42.0-Image-ExifTool-13.59.drv",
+      "description": "Tool to read, write and edit EXIF meta information",
+      "install_id": "exiftool",
+      "license": "[ GPL-1.0-or-later, Artistic-2.0 ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "perl5.42.0-Image-ExifTool-13.59",
+      "pname": "exiftool",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:08:48.434360Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "13.59",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/k86h90qs8p52a9bnjp3ipv4y3wbwgas2-perl5.42.0-Image-ExifTool-13.59-devdoc",
+        "out": "/nix/store/sz6cy0akxc86k3n2li0mlcardz2s4q61-perl5.42.0-Image-ExifTool-13.59"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "exiftool",
+      "broken": false,
+      "derivation": "/nix/store/fyw7qd9s4900gpipqk4451lqjwdb96hn-perl5.42.0-Image-ExifTool-13.59.drv",
+      "description": "Tool to read, write and edit EXIF meta information",
+      "install_id": "exiftool",
+      "license": "[ GPL-1.0-or-later, Artistic-2.0 ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "perl5.42.0-Image-ExifTool-13.59",
+      "pname": "exiftool",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:39:21.627660Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "13.59",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/7wsi95k9dpz5y383ar0wkgfl6ba4qv2a-perl5.42.0-Image-ExifTool-13.59-devdoc",
+        "out": "/nix/store/c4f109r886hkb926ngbz22dy9fbz34y8-perl5.42.0-Image-ExifTool-13.59"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ffmpeg",
+      "broken": false,
+      "derivation": "/nix/store/0vxkmn9i3g88rqdr0d6kh21m98r1cxnh-ffmpeg-8.1.1.drv",
+      "description": "Complete, cross-platform solution to record, convert and stream audio and video",
+      "install_id": "ffmpeg",
+      "license": "[ LGPL-2.1-or-later, GPL-2.0-or-later, LGPL-3.0-or-later, GPL-3.0-or-later ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "ffmpeg-8.1.1",
+      "pname": "ffmpeg",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:12:48.017160Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "8.1.1",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/l0c20b9wh81cak8nnk4pwxwhhsp577l4-ffmpeg-8.1.1-bin",
+        "data": "/nix/store/xgb9780rjpbw7702y4ycg01zbzf4jb7s-ffmpeg-8.1.1-data",
+        "dev": "/nix/store/d3zpgpzialyiv78b139m890gaa7hgsc0-ffmpeg-8.1.1-dev",
+        "doc": "/nix/store/9bkyz9j3lcn8jb28mz1g8a4l1jhkd1f1-ffmpeg-8.1.1-doc",
+        "lib": "/nix/store/jliy906yi93mxgys7sqgd3anl490j4fi-ffmpeg-8.1.1-lib",
+        "man": "/nix/store/vm237ccn54k0x5qwymf9xjwh7nph2h8k-ffmpeg-8.1.1-man",
+        "out": "/nix/store/i50jrlq4sw4kn9z2liiadv77h4xak889-ffmpeg-8.1.1"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ffmpeg",
+      "broken": false,
+      "derivation": "/nix/store/af82c8z3fvysv4k3pclcs2s0g5lnj96v-ffmpeg-8.1.1.drv",
+      "description": "Complete, cross-platform solution to record, convert and stream audio and video",
+      "install_id": "ffmpeg",
+      "license": "[ LGPL-2.1-or-later, GPL-2.0-or-later, LGPL-3.0-or-later, GPL-3.0-or-later ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "ffmpeg-8.1.1",
+      "pname": "ffmpeg",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:41:21.942718Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "8.1.1",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/lm7aikd8jbm6hhxih8kwrmni01rgckk1-ffmpeg-8.1.1-bin",
+        "data": "/nix/store/02b61f6x23kxjdf4fmbvcimj2n568p3z-ffmpeg-8.1.1-data",
+        "dev": "/nix/store/x149ijysxai9dfb2h1hi68v3c5d6n7nl-ffmpeg-8.1.1-dev",
+        "doc": "/nix/store/840qf0mzkdvrd3xfq6kgdc1hkjxc40kl-ffmpeg-8.1.1-doc",
+        "lib": "/nix/store/glzzn6yqshd69cw795fwsivbnfm51hzj-ffmpeg-8.1.1-lib",
+        "man": "/nix/store/pwds4xbh51qllvy69pd4z0dw1kj5wzzg-ffmpeg-8.1.1-man",
+        "out": "/nix/store/2zlidx3zsxrn04yrnb0hgfgx4y34m66m-ffmpeg-8.1.1"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ffmpeg",
+      "broken": false,
+      "derivation": "/nix/store/0mhql2458qfwh3lcypb0cgb5clbdjay3-ffmpeg-8.1.1.drv",
+      "description": "Complete, cross-platform solution to record, convert and stream audio and video",
+      "install_id": "ffmpeg",
+      "license": "[ LGPL-2.1-or-later, GPL-2.0-or-later, LGPL-3.0-or-later, GPL-3.0-or-later ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "ffmpeg-8.1.1",
+      "pname": "ffmpeg",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:08:48.499706Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "8.1.1",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/l3vj6msfhnhz88cn80vzjzvb5wy7mbyh-ffmpeg-8.1.1-bin",
+        "data": "/nix/store/1rjnnsnkj8iyq24dvvvpci6pgdcgaqrr-ffmpeg-8.1.1-data",
+        "dev": "/nix/store/x2kv93yfmbnqr5m9i8kzpswp7c3698gx-ffmpeg-8.1.1-dev",
+        "doc": "/nix/store/42hwfxx0dxc0j43bs6761p2n5i5dmzx8-ffmpeg-8.1.1-doc",
+        "lib": "/nix/store/3z0gbnn9k7n562r8pqvpzlw2a1fmgl8r-ffmpeg-8.1.1-lib",
+        "man": "/nix/store/hizjzb0rsg89cw5vjk99yb94vs4jqbyy-ffmpeg-8.1.1-man",
+        "out": "/nix/store/wr163wqpwzbyj8bwmn0xgwdxwhqxgsza-ffmpeg-8.1.1"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ffmpeg",
+      "broken": false,
+      "derivation": "/nix/store/ag98pa4lp7psyr32bax3f8h95fy52mf4-ffmpeg-8.1.1.drv",
+      "description": "Complete, cross-platform solution to record, convert and stream audio and video",
+      "install_id": "ffmpeg",
+      "license": "[ LGPL-2.1-or-later, GPL-2.0-or-later, LGPL-3.0-or-later, GPL-3.0-or-later ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "name": "ffmpeg-8.1.1",
+      "pname": "ffmpeg",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:39:21.754095Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "8.1.1",
+      "outputs_to_install": [
+        "bin",
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/jfnnrn72slgs4ryx4g09lb97r193xddp-ffmpeg-8.1.1-bin",
+        "data": "/nix/store/50jahvv3gz6awqi0vh90sbyz894j95xh-ffmpeg-8.1.1-data",
+        "dev": "/nix/store/rqzfp09y7xgz03ci1l6xpzmpjh3vfca9-ffmpeg-8.1.1-dev",
+        "doc": "/nix/store/xp0q8rq7yx9xclzq05hf1kfzg5b2b3s1-ffmpeg-8.1.1-doc",
+        "lib": "/nix/store/9sbhlnp3pc0rbammkdgz4r9sl4dwb8jm-ffmpeg-8.1.1-lib",
+        "man": "/nix/store/5jmxk2dc87b03a5wxrwipsl4i8gn1sd9-ffmpeg-8.1.1-man",
+        "out": "/nix/store/by3i5wg6xh6ycskix22dz36qs3wvgmv1-ffmpeg-8.1.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
       "attr_path": "git-lfs",
       "broken": false,
       "derivation": "/nix/store/f1iy5ypqn7i0pgw1d6j8kmny6higgbxa-git-lfs-3.7.1.drv",
       "description": "Git extension for versioning large files",
       "install_id": "git-lfs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "git-lfs-3.7.1",
       "pname": "git-lfs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T03:16:44.281754Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:12:48.339668Z",
       "stabilities": [
         "unstable"
       ],
@@ -51,13 +322,13 @@
       "description": "Git extension for versioning large files",
       "install_id": "git-lfs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "git-lfs-3.7.1",
       "pname": "git-lfs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T03:49:24.320232Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:41:22.438572Z",
       "stabilities": [
         "unstable"
       ],
@@ -80,13 +351,13 @@
       "description": "Git extension for versioning large files",
       "install_id": "git-lfs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "git-lfs-3.7.1",
       "pname": "git-lfs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T04:21:05.489798Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:08:48.821148Z",
       "stabilities": [
         "unstable"
       ],
@@ -109,13 +380,13 @@
       "description": "Git extension for versioning large files",
       "install_id": "git-lfs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "git-lfs-3.7.1",
       "pname": "git-lfs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T04:55:46.094884Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:39:22.284594Z",
       "stabilities": [
         "unstable"
       ],
@@ -138,13 +409,13 @@
       "description": "Event-driven I/O framework for the V8 JavaScript engine",
       "install_id": "nodejs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "nodejs-24.16.0",
       "pname": "nodejs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T03:17:08.197943Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:13:12.434109Z",
       "stabilities": [
         "unstable"
       ],
@@ -167,13 +438,13 @@
       "description": "Event-driven I/O framework for the V8 JavaScript engine",
       "install_id": "nodejs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "nodejs-24.16.0",
       "pname": "nodejs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T03:50:00.922428Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T03:41:58.895602Z",
       "stabilities": [
         "unstable"
       ],
@@ -196,13 +467,13 @@
       "description": "Event-driven I/O framework for the V8 JavaScript engine",
       "install_id": "nodejs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "nodejs-24.16.0",
       "pname": "nodejs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T04:21:29.941494Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:09:14.252199Z",
       "stabilities": [
         "unstable"
       ],
@@ -225,13 +496,13 @@
       "description": "Event-driven I/O framework for the V8 JavaScript engine",
       "install_id": "nodejs",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=e73de5be04e0eff4190a1432b946d469c794e7b4",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
       "name": "nodejs-24.16.0",
       "pname": "nodejs",
-      "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-      "rev_count": 1022855,
-      "rev_date": "2026-06-26T09:58:34Z",
-      "scrape_date": "2026-06-27T04:56:26.345327Z",
+      "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+      "rev_count": 1024265,
+      "rev_date": "2026-06-29T09:01:53Z",
+      "scrape_date": "2026-07-01T04:40:03.064533Z",
       "stabilities": [
         "unstable"
       ],
