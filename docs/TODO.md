@@ -12,8 +12,17 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
       Telegram, iMessage, WhatsApp, Slack, Discord, FB, LinkedIn. Currently no preview image. Quick.
 - [ ] **Replace or attribute the demo videos.** Big Buck Bunny + Sintel trailer are **CC BY 3.0
       (attribution required)** and currently live. Swap for real footage, or add a credit line.
-- [ ] **End-to-end test `scripts/publish-media.sh`** with one real clip → lands at
-      `travels.zlat.co/media/...`, serves, invalidation works. (Only dry-run so far.)
+- [x] **End-to-end test `scripts/publish-media.sh`** — done with the Bavaria media (26 clips +
+      posters live at `travels.zlat.co/media/...`, range requests verified, invalidation works).
+- [ ] **Bavaria journey — review before `draft: false`** (drafts currently on all three files):
+  - [ ] Confirm the Munich food story (ćevapi place, Tollwood stalls) and the Sendlinger Tor
+        match-night caption.
+  - [ ] Decide Munich scene order: thematic (current) vs strict capture order (Königssee is
+        chronological already).
+  - [ ] Per-clip trim decisions — everything is published FULL LENGTH by rule; after review,
+        decide which clips get cut (masters keep originals; the trumpet echo cycles live at
+        ~0:30–2:40 of its clip). Full pages currently weigh ~0.5 GB/part if every clip plays out.
+  - [ ] Then: flip `draft: false`, push (13 local commits), delete/replace the Iceland demo.
 - [ ] **Real-device test on iOS Safari** — unmute-on-tap audio, autoplay-in-view, `dvh` full-bleed,
       sticky pinning. Things desktop/emulators can't confirm.
 
@@ -28,7 +37,8 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
       (cross-cutting, when those features land): map route lines, RSS, taxonomy facet.
   - [ ] Slovenian versions of the Bavaria journey (`bavaria-2026-06.sl.mdx` + segment `.sl.mdx` files).
 - [ ] Verify `audio: { mode: track }` end-to-end with a real looping mp3 (implemented, never demoed).
-- [ ] Confirm `archive-backup.sh` against a populated master store (only dry-run so far).
+- [x] Confirm `archive-backup.sh` against a populated master store — done (Bavaria masters + web,
+      ~2 GB in the archive bucket).
 - [ ] **Site name / description / contact copy.** Current text is placeholder — write proper wording for
       the site title, meta description, and a contact line/link. Feeds the OG/SEO items above too.
 - [ ] **Preview work-in-progress pages.** A way to see draft trips on the (deployed) site without
