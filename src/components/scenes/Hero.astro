@@ -85,11 +85,20 @@ const { image, alt = '', eyebrow, title, subtitle, video, poster, place, coord, 
     z-index: 1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.15) 40%, rgba(0, 0, 0, 0.55));
   }
+  /* Radial scrim centered where the copy sits — darkens behind the text and
+     fades into the footage, so bright skies can't wash the title out. */
+  .scene-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse 55% 50% at 50% 50%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 100%);
+  }
   .hero-copy {
     position: relative;
     z-index: 2;
     padding-inline: var(--gutter);
-    max-width: 22ch;
+    max-width: 46rem;
   }
   .hero-eyebrow {
     font-family: var(--font-mono);
@@ -97,18 +106,24 @@ const { image, alt = '', eyebrow, title, subtitle, video, poster, place, coord, 
     letter-spacing: 0.28em;
     font-size: var(--step--1);
     margin: 0 0 1rem;
-    opacity: 0.85;
+    opacity: 0.9;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
   }
   .hero-title {
     font-size: var(--step-4);
     text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
+    max-width: 22ch;
+    margin-inline: auto;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
   }
   .hero-subtitle {
     margin-top: 1rem;
     font-style: italic;
     font-size: var(--step-1);
-    opacity: 0.92;
+    opacity: 0.95;
+    max-width: 36ch;
+    margin-inline: auto;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
   }
   .hero-scrollcue {
     position: absolute;
