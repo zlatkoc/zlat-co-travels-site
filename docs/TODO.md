@@ -33,6 +33,37 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
 - [ ] **Real-device test on iOS Safari** — unmute-on-tap audio, autoplay-in-view, `dvh` full-bleed,
       sticky pinning. Things desktop/emulators can't confirm.
 
+## Scene catalog candidates
+
+Gaps found researching the visual language (see `docs/VISUAL-LANGUAGE.md`); ordered by how
+much the Bavaria pages would use them. Decide which earn a place before implementing any.
+
+- [ ] **VideoFigure** — journal-register video: centered, natural aspect, NEVER cropped
+      (cinematic ScrubVideo crops via `object-fit: cover`), prose caption in the reading
+      column. The moving sibling of PhotoFigure — for "object" clips (smokehouse fire, food,
+      dumpster pool) vs "place" clips.
+- [ ] **ChapterBreak** — typographic day/chapter divider ("DAY 2 — JUNE 25", mono, rule
+      lines). Multi-day pages (Munich) get visible structure beyond the HUD meta; may resolve
+      the thematic-vs-chronological question (chronological days, thematic within a day).
+- [ ] **Waypoint** — slim one-line transit marker in instrument voice
+      ("Salet → St. Bartholomä · 10 min by boat"). Marks travel legs cheaply so ReadingBlocks
+      stay for storytelling. Small build, used often.
+- [ ] **PhotoPair** — diptych: two uncropped photos side by side, one shared prose caption
+      (Buttermilch + Almdudler; thali + pani puri). Today's options are two tall stacked
+      PhotoFigures or the cropping Gallery.
+- [ ] **MapScene** — the flagship: route map (journey overview on the landing page, day route
+      per part) plotting the scenes' existing `place`/`coord`. The payoff the expedition HUD
+      promises. Biggest build (tiles/style/route data) — schedule deliberately.
+- [ ] Smaller flavor: **LogPanel** (mono day-facts card: first boat 08:15 · 41.5°C record ·
+      home 22:00), **Aside** (marginal note for cultural glosses, e.g. what Almdudler is),
+      **text-only pull quote** (likely just a styled blockquote inside ReadingBlock, not a
+      scene).
+- Already built but unused — try before inventing more: ScrubVideo `scrub` mode
+  (scroll-driven playback, one signature moment max), ScrubVideo `panImage` (scroll-panned
+  wide photo — Rossfeld panorama), `audio: track` ambient loop (also listed below).
+- Researched and rejected for this site's identity: timelines, before/after sliders,
+  data-viz blocks, parallax text.
+
 ## Content & structure
 
 - [x] **Multi-part trips / journeys** — built (see `docs/AUTHORING.md` § Journeys). Decisions taken:
