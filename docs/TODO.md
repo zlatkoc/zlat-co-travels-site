@@ -14,17 +14,22 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
       (attribution required)** and currently live. Swap for real footage, or add a credit line.
 - [x] **End-to-end test `scripts/publish-media.sh`** — done with the Bavaria media (26 clips +
       posters live at `travels.zlat.co/media/...`, range requests verified, invalidation works).
-- [ ] **Bavaria journey — review before `draft: false`** (drafts currently on all three files):
-  - [ ] Confirm the Munich food story (ćevapi place, Tollwood stalls) and the Sendlinger Tor
-        match-night caption.
-  - [ ] Decide Munich scene order: thematic (current) vs strict capture order (Königssee is
-        chronological already).
-  - [ ] Munich reading beats between video runs (3 stream clips, 6 Tollwood clips back-to-back) —
-        same treatment as Königssee; user may supply a line of raw memory per scene first.
-  - [ ] Per-clip trim decisions — everything is published FULL LENGTH by rule; after review,
-        decide which clips get cut (masters keep originals; the trumpet echo cycles live at
-        ~0:30–2:40 of its clip). Full pages currently weigh ~0.5 GB/part if every clip plays out.
-  - [ ] Then: flip `draft: false`, push (13 local commits), delete/replace the Iceland demo.
+- [ ] **Bavaria journey — review before `draft: false`** (drafts currently on all three files).
+      **Working order: finish the Königssee page first; only when satisfied with it, start on
+      Munich** (Königssee is the template — chronological order, reading beats, PhotoFigure).
+  - Königssee (current focus):
+    - [ ] Content + sequencing pass until satisfied (preview: `/preview-<token>/en/bavaria-2026-06/koenigssee`).
+    - [ ] Per-clip trim decisions — everything is published FULL LENGTH by rule; decide which
+          clips get cut (masters keep originals; the trumpet echo cycles live at ~0:30–2:40 of
+          its clip). Full page weighs ~0.5 GB if every clip plays out.
+  - Munich (after Königssee is done):
+    - [ ] Apply the Königssee treatment: decide thematic vs strict capture order; reading beats
+          between video runs (3 stream clips, 6 Tollwood clips back-to-back — user may supply a
+          line of raw memory per scene); PhotoFigure where a photo deserves to stand alone.
+    - [ ] Confirm the food story (ćevapi place, Tollwood stalls) and the Sendlinger Tor
+          match-night caption.
+    - [ ] Per-clip trim decisions (same rule as above).
+  - [ ] Then: flip `draft: false`, push, delete/replace the Iceland demo.
 - [ ] **Real-device test on iOS Safari** — unmute-on-tap audio, autoplay-in-view, `dvh` full-bleed,
       sticky pinning. Things desktop/emulators can't confirm.
 
