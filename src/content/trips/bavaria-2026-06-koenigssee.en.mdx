@@ -1,0 +1,195 @@
+---
+title: Königssee
+summary: First boat out, a trumpet against the cliffs, and a lake cold enough to forget the heatwave.
+date: 2026-06-28
+lang: en
+slug: koenigssee
+key: bavaria-2026-06-koenigssee
+journey:
+  key: bavaria-2026-06
+  part: 2
+location:
+  name: Königssee, Germany
+  lat: 47.5553
+  lng: 12.9721
+heroImage: ./_media/bavaria-2026-06-koenigssee/hero.jpg
+heroAlt: Morning light on the cliffs of Königssee, seen from the water
+theme:
+  accent: "#2f6f5e"
+draft: true
+audio:
+  mode: per-video
+---
+
+import Hero from '../../components/scenes/Hero.astro';
+import ReadingBlock from '../../components/scenes/ReadingBlock.astro';
+import StickyPhoto from '../../components/scenes/StickyPhoto.astro';
+import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
+import PullQuote from '../../components/scenes/PullQuote.astro';
+import Gallery from '../../components/scenes/Gallery.astro';
+
+import hero from './_media/bavaria-2026-06-koenigssee/hero.jpg';
+import signpost from './_media/bavaria-2026-06-koenigssee/signpost.jpg';
+import obersee from './_media/bavaria-2026-06-koenigssee/obersee.jpg';
+import buttermilch from './_media/bavaria-2026-06-koenigssee/buttermilch.jpg';
+import fischunkelalm from './_media/bavaria-2026-06-koenigssee/fischunkelalm.jpg';
+import stBartholomae from './_media/bavaria-2026-06-koenigssee/st-bartholomae.jpg';
+import trout from './_media/bavaria-2026-06-koenigssee/trout.jpg';
+import badeshorts from './_media/bavaria-2026-06-koenigssee/badeshorts.jpg';
+import burgerKing from './_media/bavaria-2026-06-koenigssee/burger-king.jpg';
+
+export const CDN = 'https://travels.zlat.co/media/bavaria-2026-06-koenigssee';
+export const M = {
+  hero,
+  signpost,
+  obersee,
+  buttermilch,
+  fischunkelalm,
+  stBartholomae,
+  trout,
+  badeshorts,
+  burgerKing,
+  trumpet: `${CDN}/trumpet-echo.mp4`,
+  trumpetPoster: `${CDN}/trumpet-echo.poster.jpg`,
+  boat: `${CDN}/boat.mp4`,
+  boatPoster: `${CDN}/boat.poster.jpg`,
+  smokehouse: `${CDN}/smokehouse.mp4`,
+  smokehousePoster: `${CDN}/smokehouse.poster.jpg`,
+  rossfeld: `${CDN}/rossfeld.mp4`,
+  rossfeldPoster: `${CDN}/rossfeld.poster.jpg`,
+};
+
+<Hero
+  image={M.hero}
+  alt="Morning light on the cliffs of Königssee, seen from the water"
+  eyebrow="Bavaria — Part 2 of 2"
+  title="Königssee"
+  subtitle="First boat out, before the heat and the crowds."
+  place="Königssee"
+  coord="47.555° N, 12.972° E"
+  meta="June 28 — before six"
+/>
+
+<ReadingBlock dropcap place="Schönau am Königssee" coord="47.593° N, 12.987° E" meta="The early start">
+Sunday started before six. The alarm felt like a mistake until the drive south turned into
+mountains, and by quarter past eight I was on the first boat of the day, sliding out onto water so
+green and still it looked poured rather than filled.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.trumpet}
+  poster={M.trumpetPoster}
+  alt="Inside the wooden electric boat on Königssee while the conductor plays the trumpet"
+  caption="Mid-lake, engine off — tap Sound and wait for the cliffs to answer"
+  place="Echo Wall"
+  coord="47.570° N, 12.977° E"
+  meta="The echo"
+/>
+
+<ReadingBlock place="Echo Wall" coord="47.570° N, 12.977° E" meta="The trumpet">
+Halfway down the lake the boat stopped. The conductor stood up, raised a trumpet, and played a few
+bars out of the open window — then silence, and the cliffs played them back. Twice, maybe three
+times, each echo softer, as if the mountain was learning the tune.
+</ReadingBlock>
+
+<PullQuote
+  image={M.obersee}
+  alt="The Obersee perfectly mirroring the mountains, framed by leaves"
+  cite="Obersee"
+  place="Obersee"
+  coord="47.532° N, 13.002° E"
+  meta="The upper lake"
+>
+From Salet it's a short walk to the Obersee. On the far side of the upper lake there was
+Buttermilch, an Almdudler, and a dip into water that erased the entire heatwave in about four
+seconds.
+</PullQuote>
+
+<StickyPhoto
+  steps={[
+    {
+      image: M.signpost,
+      alt: 'A yellow hiking signpost pointing to Obersee and Fischunkelalm under high cliffs',
+      title: 'The walk in',
+      text: 'From the Salet jetty the path curls past a signpost promising the Obersee in ten minutes and the Fischunkelalm in forty-five. Both estimates assume you stop photographing nothing.',
+      place: 'Salet',
+      coord: '47.545° N, 13.000° E',
+      meta: 'To the upper lake',
+    },
+    {
+      image: M.buttermilch,
+      alt: 'A glass of buttermilk and a glass of Almdudler on a wooden table by the lake',
+      title: 'Alm refreshments',
+      text: 'At the Fischunkelalm on the far shore: a glass of cold Buttermilch, an Almdudler, and the kind of view that makes both taste like a reward.',
+      place: 'Fischunkelalm',
+      coord: '47.529° N, 13.012° E',
+      meta: 'Buttermilch & Almdudler',
+    },
+    {
+      image: M.stBartholomae,
+      alt: 'The red onion domes of St. Bartholomä church against forested mountains',
+      title: 'St. Bartholomä',
+      text: 'Back at the red domes of St. Bartholomä I found the shade of the big trees and slept for an hour — the way you only sleep outdoors in summer.',
+      place: 'St. Bartholomä',
+      coord: '47.553° N, 12.966° E',
+      meta: 'The nap',
+    },
+    {
+      image: M.trout,
+      alt: 'A whole smoked trout on paper with dark bread, butter and horseradish cream',
+      title: 'Smoked trout',
+      text: 'Then lunch: lake trout, smoked a few metres from the water it came out of, with dark bread and a small beer that had earned its place.',
+      place: 'St. Bartholomä',
+      coord: '47.553° N, 12.966° E',
+      meta: 'The trout',
+    },
+  ]}
+/>
+
+<ScrubVideo
+  video={M.smokehouse}
+  poster={M.smokehousePoster}
+  alt="Rows of trout hanging over an open fire in the smokehouse"
+  caption="The smokehouse at St. Bartholomä — tap Sound for the fire"
+  place="St. Bartholomä"
+  coord="47.553° N, 12.966° E"
+  meta="Where lunch comes from"
+/>
+
+<ScrubVideo
+  video={M.boat}
+  poster={M.boatPoster}
+  alt="A wooden electric boat named Bischofswiesen at the jetty on emerald water"
+  caption="The fleet has run on electricity since 1909"
+  place="Königssee"
+  coord="47.555° N, 12.972° E"
+  meta="The boat back"
+/>
+
+<ReadingBlock place="Rossfeld Panoramastraße" coord="47.626° N, 13.070° E" meta="The high road">
+Back at the car I took the long way out — the Rossfeld Panoramastraße, a loop of road laid along
+the ridge with half of Bavaria on one side and Austria on the other. Then the motorway, and a
+Burger King in Liezen packed with Formula 1 fans streaming home from the Austrian Grand Prix at
+Spielberg, run that same afternoon. Home around ten.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.rossfeld}
+  poster={M.rossfeldPoster}
+  alt="The view from the Rossfeld ridge over hairpin roads and the valley below"
+  caption="Rossfeld Panoramastraße — the ridge between two countries"
+  place="Rossfeld"
+  coord="47.626° N, 13.070° E"
+  meta="The scenic detour"
+/>
+
+<Gallery
+  place="Königssee"
+  coord="47.555° N, 12.972° E"
+  meta="Part 2 — the lake"
+  items={[
+    { image: M.fischunkelalm, alt: 'Umbrellas and benches of the Fischunkelalm terrace above the Obersee', caption: 'Fischunkelalm, table with a view', wide: true },
+    { image: M.badeshorts, alt: 'Swim shorts styled like lederhosen hanging in a souvenir shop', caption: 'Lederhosen, swimwear edition' },
+    { image: M.burgerKing, alt: 'Formula 1 fans in orange shirts filling a Burger King', caption: 'Liezen, full of the Orange Army' },
+  ]}
+/>

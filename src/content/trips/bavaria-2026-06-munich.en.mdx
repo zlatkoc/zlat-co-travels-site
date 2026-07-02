@@ -1,0 +1,212 @@
+---
+title: Munich
+summary: A conference, a record heatwave, and a city that cools itself in its own river.
+date: 2026-06-24
+lang: en
+slug: munich
+key: bavaria-2026-06-munich
+journey:
+  key: bavaria-2026-06
+  part: 1
+location:
+  name: Munich, Germany
+  lat: 48.1351
+  lng: 11.582
+heroImage: ./_media/bavaria-2026-06-munich/hero.jpg
+heroAlt: The Isar river and a stone bridge at dusk, gravel banks dotted with people
+theme:
+  accent: "#3a6b35"
+draft: true
+audio:
+  mode: per-video
+---
+
+import Hero from '../../components/scenes/Hero.astro';
+import ReadingBlock from '../../components/scenes/ReadingBlock.astro';
+import StickyPhoto from '../../components/scenes/StickyPhoto.astro';
+import ScrubVideo from '../../components/scenes/ScrubVideo.astro';
+import PullQuote from '../../components/scenes/PullQuote.astro';
+import Gallery from '../../components/scenes/Gallery.astro';
+
+import hero from './_media/bavaria-2026-06-munich/hero.jpg';
+import bosniaNapkin from './_media/bavaria-2026-06-munich/bosnia-napkin.jpg';
+import cevapi from './_media/bavaria-2026-06-munich/cevapi.jpg';
+import beerSign from './_media/bavaria-2026-06-munich/beer-sign.jpg';
+import fanCar from './_media/bavaria-2026-06-munich/fan-car.jpg';
+import tollwoodLion from './_media/bavaria-2026-06-munich/tollwood-lion.jpg';
+import thali from './_media/bavaria-2026-06-munich/thali.jpg';
+import paniPuri from './_media/bavaria-2026-06-munich/pani-puri.jpg';
+import sendlingerTor from './_media/bavaria-2026-06-munich/sendlinger-tor.jpg';
+import badetag from './_media/bavaria-2026-06-munich/badetag.jpg';
+
+export const CDN = 'https://travels.zlat.co/media/bavaria-2026-06-munich';
+export const M = {
+  hero,
+  bosniaNapkin,
+  cevapi,
+  beerSign,
+  fanCar,
+  tollwoodLion,
+  thali,
+  paniPuri,
+  sendlingerTor,
+  badetag,
+  englishGarden: `${CDN}/english-garden.mp4`,
+  englishGardenPoster: `${CDN}/english-garden.poster.jpg`,
+  surfers: `${CDN}/eisbach-surfers.mp4`,
+  surfersPoster: `${CDN}/eisbach-surfers.poster.jpg`,
+  match: `${CDN}/biergarten-match.mp4`,
+  matchPoster: `${CDN}/biergarten-match.poster.jpg`,
+  mist: `${CDN}/tollwood-mist.mp4`,
+  mistPoster: `${CDN}/tollwood-mist.poster.jpg`,
+  cycling: `${CDN}/cycling.mp4`,
+  cyclingPoster: `${CDN}/cycling.poster.jpg`,
+};
+
+<Hero
+  image={M.hero}
+  alt="The Isar river and a stone bridge at dusk, gravel banks dotted with people"
+  eyebrow="Bavaria — Part 1 of 2"
+  title="Munich"
+  subtitle="A conference, a heatwave, and a river full of people."
+  place="Munich"
+  coord="48.135° N, 11.582° E"
+  meta="June 24 — arrival"
+/>
+
+<ReadingBlock dropcap place="Munich" coord="48.135° N, 11.582° E" meta="June 24–26 — the excuse">
+The reason for being here fits in one sentence: two days of the
+[Event Modeling Conference](https://www.nebulit.de/eventmodeling-conference-2026), June 25th and
+26th. That was the plan, and the plan held. Everything else in this story is what happened around
+it.
+
+What no plan accounted for was the heat. Late June 2026 turned into a record European heatwave —
+Germany broke its all-time temperature record twice in one weekend, 41.3°C on Friday and 41.5°C on
+Saturday — and Munich spent the week around 35°C with no intention of cooling down after dark.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.englishGarden}
+  poster={M.englishGardenPoster}
+  alt="Crowds sunbathing and swimming along a stream in the English Garden"
+  caption="The English Garden, doing its best impression of a beach"
+  place="English Garden"
+  coord="48.150° N, 11.590° E"
+  meta="The city cools off"
+/>
+
+<ReadingBlock place="Eisbach" coord="48.143° N, 11.588° E" meta="Munich's answer to the heat">
+Munich's answer to the heat is the river. People were dipping into the Isar everywhere, and the
+English Garden looked like one long lido — every stream lined with towels, every current carrying a
+slow parade of heads downstream. And at the Eisbach wave, the surfers queued in wetsuits as if the
+Alps had shipped them a piece of ocean.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.surfers}
+  poster={M.surfersPoster}
+  alt="Surfers riding the standing wave on the Eisbach river"
+  caption="The Eisbach wave — tap Sound to hear the river"
+  place="Eisbach wave"
+  coord="48.143° N, 11.588° E"
+  meta="Surfing, 500 km from the sea"
+/>
+
+<ReadingBlock place="Löwenbräukeller" coord="48.147° N, 11.549° E" meta="The match">
+One evening belonged to the World Cup: Germany against Ecuador on the big screen in the
+Löwenbräukeller Biergarten. It was too hot for proper beer, so I did the only sensible thing a
+guest can do in a Bavarian beer garden — ordered a Radler and didn't apologise for it. Germany led
+after two minutes and still managed to lose 2–1, which the garden took with remarkable,
+well-watered composure.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.match}
+  poster={M.matchPoster}
+  alt="A packed beer garden under chestnut trees watching the match"
+  caption="Löwenbräukeller, minutes before kickoff"
+  place="Löwenbräukeller"
+  coord="48.147° N, 11.549° E"
+  meta="Germany 1 — Ecuador 2"
+/>
+
+<StickyPhoto
+  steps={[
+    {
+      image: M.tollwoodLion,
+      alt: 'A lion sculpture built from scrap wood at the Tollwood festival',
+      title: 'Tollwood',
+      text: 'Up at the Olympiapark, the Tollwood summer festival had taken over — stages, stalls, and a lion built out of scrap wood guarding the entrance.',
+      place: 'Olympiapark',
+      coord: '48.175° N, 11.552° E',
+      meta: 'Tollwood festival',
+    },
+    {
+      image: M.badetag,
+      alt: 'A man cooling off inside a blue dumpster converted into a pool',
+      title: 'Saturday is bath day',
+      text: '"SAMSTAG IST BADETAG — mit Bademeister." Someone had turned a dumpster into a pool, staffed it with a lifeguard, and nobody found this strange in the slightest.',
+      place: 'Olympiapark',
+      coord: '48.175° N, 11.552° E',
+      meta: 'Heatwave engineering',
+    },
+    {
+      image: M.thali,
+      alt: 'A steel thali plate with rice, dal and vegetables on a painted wooden table',
+      title: 'Dinner, worldwide',
+      text: 'Tollwood eats globally: a thali here, pani puri there, fish grilling over open fires. The heat demanded lemonade with everything.',
+      place: 'Olympiapark',
+      coord: '48.175° N, 11.552° E',
+      meta: 'The food stalls',
+    },
+  ]}
+/>
+
+<ScrubVideo
+  video={M.mist}
+  poster={M.mistPoster}
+  alt="A misting station spraying visitors between the tent roofs of the Olympiapark"
+  caption="The most popular spot at Tollwood: the misting station"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="35°C, gratefully received"
+/>
+
+<ReadingBlock place="Munich by bike" coord="48.135° N, 11.582° E" meta="Two wheels through the heat">
+The best way to see Munich that week was from a saddle. By bike the heat became airflow, and the
+city unfolded at exactly the right speed — out along the Isar, through the English Garden, up to
+the Olympiapark and back. On the long straight avenues north of the city you could ride for
+minutes without touching the brakes, past a steady procession of other cyclists with the same
+idea.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.cycling}
+  poster={M.cyclingPoster}
+  alt="Cyclists on a long straight tree-lined path outside Munich"
+  caption="The only sane speed in that heat"
+  place="Munich by bike"
+  coord="48.135° N, 11.582° E"
+  meta="Featured — the rides"
+/>
+
+<ReadingBlock place="Munich" coord="48.135° N, 11.582° E" meta="What Munich tasted like">
+And the eating: ćevapi in somun with kajmak and ajvar at a Bosnian place where the napkins read
+"I'm from Bosnia, take me to Amerika — Sretno, Zmajevi!", wishing the Dragons luck at the same
+World Cup. Then back to Tollwood for the rest of the map — dal and rice from a steel tray, pani
+puri that vanished in one bite each. Munich in a heatwave eats like the whole world at once.
+</ReadingBlock>
+
+<Gallery
+  place="Munich"
+  coord="48.135° N, 11.582° E"
+  meta="Part 1 — the city"
+  items={[
+    { image: M.cevapi, alt: 'Ćevapi in somun bread with kajmak, chopped onion and ajvar', caption: 'Ćevapi, kajmak, ajvar — no notes', wide: true },
+    { image: M.bosniaNapkin, alt: 'A napkin printed with I\'m from Bosnia take me to Amerika, next to a glass of Ayinger beer', caption: '"Sretno, Zmajevi!"' },
+    { image: M.paniPuri, alt: 'A tray of pani puri with a metal cup of green chutney', caption: 'Pani puri at Tollwood' },
+    { image: M.beerSign, alt: 'A tin sign joking that eight beers cover your daily vitamin C needs', caption: 'Souvenir-shop nutrition advice' },
+    { image: M.fanCar, alt: 'A parked BMW flying Bosnian and Croatian flags from its windows', caption: 'World Cup season, Balkan edition' },
+    { image: M.sendlingerTor, alt: 'A crowded square at night watching football on a big screen', caption: 'Sendlinger Tor, match night' },
+  ]}
+/>
