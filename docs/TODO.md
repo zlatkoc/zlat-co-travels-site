@@ -214,6 +214,21 @@ much the Bavaria pages would use them. Decide which earn a place before implemen
       internal links and missing media/asset references (e.g. `linkinator`, `lychee`, or a small script),
       and fail the PR check on breakage. Cheap guard against a renamed slug or a media file that never
       published. Slots into the PR-check workflow above.
+- [ ] **Regression testing for component changes.** The scaling problem: a tweak to a shared scene
+      (ScrubVideo, PhotoFigure, TripLayout…) touches *every* page — fine with 2 trips, dangerous with
+      20 journeys × 100 trips where nobody rescrolls old pages. Layered plan to decide/build:
+  - **Canary page** — one unlisted draft trip that exercises every scene in every variant (video hero,
+    long/short quotes, portrait/landscape figures, 1-and-4-step sticky, per-video sound, journey nav).
+    Cheapest win: review one page instead of a hundred; doubles as the component demo.
+  - **Visual regression** — Playwright (already used ad hoc; browsers cached locally) screenshots the
+    canary + a sample of real pages at 2–3 viewports, diffs against committed baselines
+    (`@playwright/test toHaveScreenshot` or `pixelmatch`); fail PR check on unexpected diffs.
+    Mask/pause videos and animations for stable shots (reduced-motion emulation helps).
+  - **Behavioral smoke** — a few Playwright assertions that encode the invariants we keep re-verifying
+    by hand: muted autoplay in view, sound handoff order, lightbox opens, prev/next journey nav,
+    drafts absent from prod build, hreflang/canonical shape.
+  - **HTML snapshot diff** — build old vs new branch, diff `dist/` HTML for pages *not* expected to
+    change (structural regressions show up as churn where there should be none).
 
 ## Legal
 
