@@ -32,23 +32,31 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
 
+      # Credentials before the build: trip photos are gitignored and live in
+      # s3://<bucket>/media-src/ — the build needs them pulled into _media/ first.
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
+      - name: Pull trip photos (media-src/)
+        run: S3_BUCKET="${{ vars.S3_BUCKET }}" scripts/sync-photos.sh pull
+
+      - run: npm run build
+
       # Hashed assets in /_astro are immutable → cache hard. HTML → revalidate.
-      # `media/*` is published separately (scripts/publish-media.sh) — never let the
-      # site deploy delete it.
+      # `media/*` (videos, publish-media.sh) and `media-src/*` (photo sources,
+      # sync-photos.sh) are published separately — never let the site deploy
+      # delete them.
       - name: Sync hashed assets (long cache)
         run: |
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
             --delete \
             --exclude "*.html" \
             --exclude "media/*" \
+            --exclude "media-src/*" \
             --cache-control "public,max-age=31536000,immutable"
 
       - name: Sync HTML (no long cache)
@@ -57,6 +65,7 @@ jobs:
             --delete \
             --exclude "*" --include "*.html" \
             --exclude "media/*" \
+            --exclude "media-src/*" \
             --cache-control "public,max-age=0,must-revalidate"
 
       - name: Invalidate CloudFront

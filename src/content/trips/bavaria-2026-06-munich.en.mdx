@@ -42,6 +42,8 @@ import badetag from './_media/bavaria-2026-06-munich/badetag.jpg';
 export const CDN = 'https://travels.zlat.co/media/bavaria-2026-06-munich';
 export const M = {
   hero,
+  heroVideo: `${CDN}/isar-bridge.mp4`,
+  heroPoster: `${CDN}/isar-bridge.poster.jpg`,
   bosniaNapkin,
   cevapi,
   beerSign,
@@ -53,18 +55,40 @@ export const M = {
   badetag,
   englishGarden: `${CDN}/english-garden.mp4`,
   englishGardenPoster: `${CDN}/english-garden.poster.jpg`,
+  streamSwimmers: `${CDN}/stream-swimmers.mp4`,
+  streamSwimmersPoster: `${CDN}/stream-swimmers.poster.jpg`,
+  streamDrift: `${CDN}/stream-drift.mp4`,
+  streamDriftPoster: `${CDN}/stream-drift.poster.jpg`,
   surfers: `${CDN}/eisbach-surfers.mp4`,
   surfersPoster: `${CDN}/eisbach-surfers.poster.jpg`,
+  weir: `${CDN}/weir-walkway.mp4`,
+  weirPoster: `${CDN}/weir-walkway.poster.jpg`,
   match: `${CDN}/biergarten-match.mp4`,
   matchPoster: `${CDN}/biergarten-match.poster.jpg`,
+  chineseTower: `${CDN}/chinese-tower.mp4`,
+  chineseTowerPoster: `${CDN}/chinese-tower.poster.jpg`,
+  folkBand: `${CDN}/folk-band.mp4`,
+  folkBandPoster: `${CDN}/folk-band.poster.jpg`,
   mist: `${CDN}/tollwood-mist.mp4`,
   mistPoster: `${CDN}/tollwood-mist.poster.jpg`,
+  badetagVideo: `${CDN}/badetag.mp4`,
+  badetagVideoPoster: `${CDN}/badetag.poster.jpg`,
+  steckerlfisch: `${CDN}/steckerlfisch.mp4`,
+  steckerlfischPoster: `${CDN}/steckerlfisch.poster.jpg`,
+  zeltbar: `${CDN}/zeltbar.mp4`,
+  zeltbarPoster: `${CDN}/zeltbar.poster.jpg`,
+  bellyDance: `${CDN}/belly-dance.mp4`,
+  bellyDancePoster: `${CDN}/belly-dance.poster.jpg`,
+  tollwoodSunset: `${CDN}/tollwood-sunset.mp4`,
+  tollwoodSunsetPoster: `${CDN}/tollwood-sunset.poster.jpg`,
   cycling: `${CDN}/cycling.mp4`,
   cyclingPoster: `${CDN}/cycling.poster.jpg`,
 };
 
 <Hero
   image={M.hero}
+  video={M.heroVideo}
+  poster={M.heroPoster}
   alt="The Isar river and a stone bridge at dusk, gravel banks dotted with people"
   eyebrow="Bavaria — Part 1 of 2"
   title="Munich"
@@ -95,6 +119,26 @@ Saturday — and Munich spent the week around 35°C with no intention of cooling
   meta="The city cools off"
 />
 
+<ScrubVideo
+  video={M.streamSwimmers}
+  poster={M.streamSwimmersPoster}
+  alt="Swimmers cooling off in a tree-lined stream of the English Garden"
+  caption="Every stream lined with towels"
+  place="English Garden"
+  coord="48.150° N, 11.590° E"
+  meta="Into the water"
+/>
+
+<ScrubVideo
+  video={M.streamDrift}
+  poster={M.streamDriftPoster}
+  alt="Heads drifting downstream between the trees"
+  caption="The slow parade of heads, drifting downstream"
+  place="English Garden"
+  coord="48.152° N, 11.592° E"
+  meta="The drift"
+/>
+
 <ReadingBlock place="Eisbach" coord="48.143° N, 11.588° E" meta="Munich's answer to the heat">
 Munich's answer to the heat is the river. People were dipping into the Isar everywhere, and the
 English Garden looked like one long lido — every stream lined with towels, every current carrying a
@@ -110,6 +154,16 @@ Alps had shipped them a piece of ocean.
   place="Eisbach wave"
   coord="48.143° N, 11.588° E"
   meta="Surfing, 500 km from the sea"
+/>
+
+<ScrubVideo
+  video={M.weir}
+  poster={M.weirPoster}
+  alt="Water rushing under a steel grating walkway at the weir"
+  caption="Crossing the weir — the river underfoot"
+  place="Isar weir"
+  coord="48.145° N, 11.590° E"
+  meta="Underfoot"
 />
 
 <ReadingBlock place="Löwenbräukeller" coord="48.147° N, 11.549° E" meta="The match">
@@ -128,6 +182,32 @@ well-watered composure.
   place="Löwenbräukeller"
   coord="48.147° N, 11.549° E"
   meta="Germany 1 — Ecuador 2"
+/>
+
+<ReadingBlock place="Chinesischer Turm" coord="48.152° N, 11.591° E" meta="The classic">
+The heat spared no institution, but the beer garden at the Chinese Tower carried on exactly as it
+has for two centuries — brass band in lederhosen on the bandstand, a thousand seats in the shade,
+and the pagoda rising over it all like a stage prop nobody questions.
+</ReadingBlock>
+
+<ScrubVideo
+  video={M.chineseTower}
+  poster={M.chineseTowerPoster}
+  alt="The wooden pagoda of the Chinese Tower above Hofbräu umbrellas"
+  caption="The Chinese Tower, two centuries into its shift"
+  place="Chinesischer Turm"
+  coord="48.152° N, 11.591° E"
+  meta="The beer garden"
+/>
+
+<ScrubVideo
+  video={M.folkBand}
+  poster={M.folkBandPoster}
+  alt="A Bavarian folk band in lederhosen playing on the bandstand"
+  caption="Tap Sound for the brass"
+  place="Chinesischer Turm"
+  coord="48.152° N, 11.591° E"
+  meta="The band"
 />
 
 <StickyPhoto
@@ -170,6 +250,56 @@ well-watered composure.
   place="Olympiapark"
   coord="48.175° N, 11.552° E"
   meta="35°C, gratefully received"
+/>
+
+<ScrubVideo
+  video={M.badetagVideo}
+  poster={M.badetagVideoPoster}
+  alt="A man in sunglasses sitting in a dumpster converted into a supervised pool"
+  caption="Bath day, with lifeguard on duty"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="The dumpster pool"
+/>
+
+<ScrubVideo
+  video={M.steckerlfisch}
+  poster={M.steckerlfischPoster}
+  alt="Fish grilling on skewers around an open fire behind glass"
+  caption="Steckerlfisch, mid-rotation"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="Fire and fish"
+/>
+
+<ScrubVideo
+  video={M.zeltbar}
+  poster={M.zeltbarPoster}
+  alt="Festival-goers at the Andechser tent bar in the evening light"
+  caption="The Andechser ZeltBAR, golden hour"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="The stalls"
+/>
+
+<ScrubVideo
+  video={M.bellyDance}
+  poster={M.bellyDancePoster}
+  alt="A dancer performing on a stage lit in purple"
+  caption="One of the evening stages — tap Sound for the music"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="The night program"
+/>
+
+<ScrubVideo
+  video={M.tollwoodSunset}
+  poster={M.tollwoodSunsetPoster}
+  alt="People sitting on a dry grass slope above the festival at sunset"
+  caption="The Olympiaberg slope, end of a hot day"
+  place="Olympiapark"
+  coord="48.175° N, 11.552° E"
+  meta="Sunset over Tollwood"
 />
 
 <ReadingBlock place="Munich by bike" coord="48.135° N, 11.582° E" meta="Two wheels through the heat">

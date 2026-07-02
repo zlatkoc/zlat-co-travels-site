@@ -22,3 +22,8 @@ dist/
 *.log
 .vscode/
 .idea/
+
+# processed trip photos — source of truth is s3://<site-bucket>/media-src/
+# (scripts/sync-photos.sh pull); kept out of git so the repo doesn't grow per trip
+/src/content/trips/_media/
+/src/content/journeys/_media/

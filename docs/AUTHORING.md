@@ -12,15 +12,20 @@ LOCAL MASTER STORE  ($MEDIA_MASTERS_DIR = media-store/ in the repo, gitignored)
         ├─ backup ───────────► S3 archive bucket  (travels-zlat-co-archive, private, not served)
         │                       scripts/archive-backup.sh
         │
-        ├─ photos (web-ready) ─► REPO  src/content/trips/_media/<trip>/   ← Astro optimizes these
-        │                       committed as normal git files (no LFS)
+        ├─ photos (web-ready) ─► WORKING TREE  src/content/trips/_media/<trip>/  ← Astro optimizes these
+        │                       gitignored; source of truth is s3://<site-bucket>/media-src/
+        │                       scripts/sync-photos.sh push|pull  (CI pulls before every build)
         │
         └─ videos + audio ─────► S3 serving bucket under media/   ← served by CloudFront
                                 scripts/publish-media.sh  →  https://travels.zlat.co/media/<trip>/...
 ```
 
 Rule of thumb:
-- **Photos → the repo** (`src/content/trips/_media/<trip>/`). Only here can Astro generate AVIF/WebP + `srcset`. They're small, so plain git is fine.
+- **Photos → `_media/` in the working tree, synced with S3, not committed.** They must sit
+  inside `src/content/*/_media/` for Astro to import + optimize (AVIF/WebP + `srcset`), but
+  they're **gitignored** — the source of truth is the site bucket's `media-src/` prefix.
+  `scripts/sync-photos.sh push` after adding photos; `pull` on a fresh clone (CI pulls
+  automatically before each build).
 - **Videos & audio → the `media/` prefix on the serving bucket** (never git — they're big). Published with `scripts/publish-media.sh`, referenced by URL.
 - **Everything (originals + web) → the archive bucket** as backup, via `scripts/archive-backup.sh`.
 
@@ -132,7 +137,8 @@ A segment referencing a journey key with no matching entry in its language fails
 - macOS one-liners (no installs): `sips -s format jpeg in.heic --out out.jpg` then
   `sips -Z 2400 out.jpg`. Or a `sharp` script. Keep masters; publish derivatives.
 
-**Where:** drop them in `src/content/trips/_media/<trip>/`, then import at the top of the MDX:
+**Where:** drop them in `src/content/trips/_media/<trip>/`, run `scripts/sync-photos.sh push`
+(they're gitignored — S3 `media-src/` is their home), then import at the top of the MDX:
 
 ```mdx
 import hero from './_media/iceland/hero.jpg';
@@ -205,10 +211,13 @@ the in-view clip is unmuted, continues across photos until the next video).
 ```bash
 scripts/archive-backup.sh    # local master store → archive bucket (off-disk backup)
 scripts/publish-media.sh     # web-ready videos/audio → serving bucket media/ + CF invalidation
+scripts/sync-photos.sh push  # processed photos in _media/ → serving bucket media-src/
+scripts/sync-photos.sh pull  # media-src/ → _media/ (fresh clone; CI runs this pre-build)
 ```
 
-Photos don't need a script — they're committed to the repo and ship through the normal
-`git push` → CI build → deploy. Configure paths/buckets in `.envrc` (see `.envrc.example`).
+Photos ship through the build (Astro optimizes them into `dist/_astro/`), but their bytes live
+in `media-src/`, not git — push them there and CI pulls before building. Configure paths/buckets
+in `.envrc` (see `.envrc.example`).
 
 ## Licensing & credits
 
@@ -233,7 +242,7 @@ Publish only media you have the right to:
 ## Pre-publish checklist
 
 - [ ] Both `*.en.mdx` and `*.sl.mdx` written, frontmatter complete
-- [ ] Photos in `_media/<trip>/`, EXIF stripped, imported in the MDX
+- [ ] Photos in `_media/<trip>/`, EXIF stripped, imported in the MDX, `sync-photos.sh push` run
 - [ ] Media you don't own is properly licensed; credits noted
 - [ ] Every video has a poster; story still reads under "reduce motion"
 - [ ] Videos preprocessed + posters, published to `media/`, URLs referenced
