@@ -2,6 +2,14 @@
 
 How to go from "back from a trip with a phone full of media" to a published story.
 
+This doc covers the **mechanics** (files, media prep, publishing). For how to *compose* the
+page — the scene catalog, registers, and rules of rhythm — see
+[docs/VISUAL-LANGUAGE.md](VISUAL-LANGUAGE.md).
+
+House rule for all media: **publish full-length clips and uncropped photos first**; the owner
+reviews the page with complete material and only then decides per-clip trims. Masters always
+keep the originals.
+
 ## Where media lives (the model)
 
 ```
@@ -41,6 +49,11 @@ src/content/trips/<key>.sl.mdx
 Set `draft: true` in frontmatter. **Draft trips appear in `npm run dev` but are excluded from the
 production build**, so a trip can sit half-finished for as long as you like without going live. Flip
 `draft: false` (or remove it) when it's ready. Working on a branch is optional but tidy.
+
+To review drafts on the real domain (any device, shareable), publish the token preview:
+`scripts/publish-preview.sh` → `https://travels.zlat.co/preview-$PREVIEW_TOKEN/en/` — the whole
+site with drafts included, noindexed, unlinked. Token lives in `.envrc`; rotate it to kill old
+links.
 
 `key` is shared across languages (links the language switcher); `slug` is the localized URL.
 
@@ -130,12 +143,26 @@ A segment referencing a journey key with no matching entry in its language fails
 
 ## 2. Photos
 
-**Prep (you do this once per photo):**
-- iPhone shoots **HEIC** — convert to **JPEG or WebP** (Chrome/Firefox can't show HEIC).
-- Resize to ~**2400 px** long edge (gallery photos ~1600 px is plenty), quality ~80, **sRGB**.
-- **Strip EXIF/GPS** (your originals embed exact location — don't publish that).
-- macOS one-liners (no installs): `sips -s format jpeg in.heic --out out.jpg` then
-  `sips -Z 2400 out.jpg`. Or a `sharp` script. Keep masters; publish derivatives.
+**Prep (per photo — two steps, both matter):**
+
+iPhone shoots **HEIC in Display P3** (wide gamut) with an EXIF orientation tag. The pipeline
+must (a) keep the P3 profile — converting to sRGB visibly desaturates on wide-gamut screens;
+the site's image service (`src/lib/image-service.ts`) preserves ICC all the way into the
+AVIF/WebP derivatives — (b) **bake orientation upright before stripping EXIF** — `sips` only
+copies the orientation tag, and stripping it later leaves portrait photos sideways — and
+(c) strip EXIF/GPS (originals embed exact location).
+
+```bash
+# 1. HEIC → JPEG at web size, NO profile conversion (keeps Display P3):
+sips -s format jpeg -s formatOptions 90 -Z 2400 IN.heic --out tmp.jpg
+
+# 2. Bake orientation, keep ICC, strip EXIF, clean re-encode (node + sharp, in-repo):
+node -e "require('sharp')('tmp.jpg').rotate().keepIccProfile()
+  .jpeg({quality:84,mozjpeg:true}).toFile('out.jpg')"
+```
+
+Do NOT run bare `exiftool -all=` on the JPEGs — it can strip the JFIF header and break
+Astro's image probe (and it kills the ICC profile). Keep masters; publish derivatives.
 
 **Where:** drop them in `src/content/trips/_media/<trip>/`, run `scripts/sync-photos.sh push`
 (they're gitignored — S3 `media-src/` is their home), then import at the top of the MDX:
@@ -151,31 +178,37 @@ import glacier from './_media/iceland/glacier.jpg';
 Every image prop also accepts a **plain URL string** (for stock/external) — local imports get
 optimized, URLs are hotlinked as-is.
 
-**Aspect ratios:** hero / pull-quote / video scenes → landscape (16:9 or 3:2). Gallery grid → 4:5
-portrait reads best; the `wide: true` gallery item is 16:9. Hero/quote get a dark wash with white
-text on top — pick shots that work with that.
+**Aspect ratios:** cinematic scenes (hero / pull-quote / sticky / video) crop to the viewport
+via `object-fit: cover` — feed them landscape (16:9 or 3:2) shots that survive cropping and a
+dark wash with white text. **Photos that must not be cropped** (portraits, food, objects)
+belong in the journal register instead: `PhotoFigure` shows the full frame at natural aspect.
+Gallery grid crops to 4:5 (`wide: true` items 16:9). See VISUAL-LANGUAGE.md for choosing.
 
 ## 3. Videos
 
-Raw iPhone Pro footage is **not web-ready** and must be preprocessed.
+Raw iPhone Pro footage is **not web-ready** and must be preprocessed. iPhone shoots
+**10-bit HLG HDR (BT.2020)**; the video encode below passes the HDR color tags through
+(browsers render it vivid — that's good), but any **still extracted from it** (posters, hero
+stills) must be tonemapped or it comes out washed-out gray.
 
-**Easiest: capture web-friendly.** On the phone, *Settings → Camera → Formats → "Most Compatible"*
-records **H.264 + SDR** instead of HEVC+HDR, which removes the two hardest problems.
+**Target spec:** H.264 (High), 8-bit `yuv420p`, `.mp4` + **faststart**, ≤1080p, 30 fps,
+CRF 23 with a ~7 Mbps cap, **full length** (house rule — trims only after the owner has seen
+the page), **keep AAC audio** (the site runs per-video sound; even the hero video is part of
+the sound chain), plus a tonemapped poster per clip.
 
-**Target spec:** H.264 (High), 8-bit `yuv420p`, `.mp4` + **faststart**, ≤1080p, SDR/Rec.709,
-30 fps, ~4–8 Mbps, short loop (10–30 s), plus a poster frame. Keep audio (AAC) only if you want
-per-video sound; drop it (`-an`) for silent background loops.
+**Produce it (ffmpeg via the flox env):**
+```bash
+# clip: full length, HDR tags pass through, audio kept
+ffmpeg -i IN.mov -vf "scale=-2:1080" -r 30 \
+  -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 23 -maxrate 7M -bufsize 14M -preset slow \
+  -c:a aac -b:a 128k -movflags +faststart OUT.mp4
 
-**Produce it (you run this):**
-- **HandBrake** (GUI, simplest): preset *Web / 1080p30*; it ingests HEVC and tone-maps HDR for you.
-- **ffmpeg:**
-  ```bash
-  ffmpeg -i IN.mov -vf "scale=-2:1080" -c:v libx264 -profile:v high \
-    -pix_fmt yuv420p -crf 21 -preset slow -an -movflags +faststart OUT.mp4
-  ffmpeg -ss 0.5 -i OUT.mp4 -frames:v 1 -q:v 3 OUT.poster.jpg
-  ```
-  For footage actually shot in HDR, HandBrake is the easy path (the ffmpeg HDR→SDR `zscale/tonemap`
-  chain is fiddly).
+# poster (and any still pulled from HDR video): tonemap HLG → SDR, from the MASTER
+TM="zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p"
+ffmpeg -ss 0.5 -i IN.mov -frames:v 1 -vf "$TM,scale=-2:1080" -q:v 3 OUT.poster.jpg
+```
+Hero stills / PhotoFigure frames from video: same `$TM` chain at `scale=2400:-2`.
+(HandBrake *Web/1080p30* remains a GUI alternative for the clip itself, not the posters.)
 
 **Where:** put the web-ready `.mp4` + poster in your local `web/<trip>/`, then publish:
 
@@ -242,10 +275,12 @@ Publish only media you have the right to:
 ## Pre-publish checklist
 
 - [ ] Both `*.en.mdx` and `*.sl.mdx` written, frontmatter complete
-- [ ] Photos in `_media/<trip>/`, EXIF stripped, imported in the MDX, `sync-photos.sh push` run
+- [ ] Photos in `_media/<trip>/` — orientation baked, P3 kept, EXIF stripped — imported in the
+      MDX, `sync-photos.sh push` run
 - [ ] Media you don't own is properly licensed; credits noted
-- [ ] Every video has a poster; story still reads under "reduce motion"
-- [ ] Videos preprocessed + posters, published to `media/`, URLs referenced
+- [ ] Every video has a **tonemapped** poster; story still reads under "reduce motion"
+- [ ] Videos full-length (trims only after owner review), audio kept, published to `media/`
+- [ ] Reviewed on the token preview (`publish-preview.sh`) — including once on a phone
 - [ ] Audio (if any) published + wired; `audio` mode set
 - [ ] `place` / `coord` / `meta` on each scene for the expedition HUD
 - [ ] `theme.accent` sampled from the hero; hero reads with white text
