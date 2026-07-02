@@ -56,6 +56,8 @@ const year = new Date().getFullYear();
 
   <main class="trip">
     <slot />
+    {/* End mark — the closing bookend to the opening drop cap. */}
+    <p class="end-mark" aria-hidden="true">⁂</p>
   </main>
 
   <footer class="trip-footer">
@@ -99,6 +101,15 @@ const year = new Date().getFullYear();
     }
     .trip {
       display: block;
+    }
+    .end-mark {
+      margin: 0;
+      padding: calc(var(--section-gap) * 0.75) var(--gutter);
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: var(--step-2);
+      color: var(--accent);
+      background: var(--paper);
     }
     .trip-footer {
       padding: var(--section-gap) var(--gutter);
