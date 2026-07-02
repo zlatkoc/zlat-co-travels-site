@@ -19,6 +19,8 @@ i18n, audio, gallery lightbox, fonts, and the media pipeline are done. This trac
         match-night caption.
   - [ ] Decide Munich scene order: thematic (current) vs strict capture order (Königssee is
         chronological already).
+  - [ ] Munich reading beats between video runs (3 stream clips, 6 Tollwood clips back-to-back) —
+        same treatment as Königssee; user may supply a line of raw memory per scene first.
   - [ ] Per-clip trim decisions — everything is published FULL LENGTH by rule; after review,
         decide which clips get cut (masters keep originals; the trumpet echo cycles live at
         ~0:30–2:40 of its clip). Full pages currently weigh ~0.5 GB/part if every clip plays out.
